@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.hubspot.jackson.datatype.protobuf.ProtobufModule;
 
 public class JSONUtils {
 
@@ -32,7 +31,7 @@ public class JSONUtils {
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         // 设置有属性不能映射成PO时不报错
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mapper.registerModule(new ProtobufModule());
+        //mapper.registerModule(new ProtobufModule());
         // Include.NON_NULL 属性为NULL 不序列化
         mapper.setSerializationInclusion(Include.NON_NULL);
     }
