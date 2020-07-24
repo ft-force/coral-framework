@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.ftf.coral.validation.spring.boot.autoconfigure.ValidationAutoConfiguration

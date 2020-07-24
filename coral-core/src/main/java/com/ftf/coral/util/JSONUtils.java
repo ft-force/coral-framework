@@ -31,7 +31,7 @@ public class JSONUtils {
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         // 设置有属性不能映射成PO时不报错
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        //mapper.registerModule(new ProtobufModule());
+        // mapper.registerModule(new ProtobufModule());
         // Include.NON_NULL 属性为NULL 不序列化
         mapper.setSerializationInclusion(Include.NON_NULL);
     }
@@ -201,5 +201,10 @@ public class JSONUtils {
             logger.error(e.getMessage(), e);
             throw new RuntimeException(e);
         }
+    }
+
+    public static <T> T toBean(Object object, Class<T> beanClass) {
+
+        return formJSON(toJSON(object), beanClass);
     }
 }

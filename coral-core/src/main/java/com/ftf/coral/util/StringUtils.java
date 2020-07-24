@@ -1,5 +1,9 @@
 package com.ftf.coral.util;
 
+import java.io.UnsupportedEncodingException;
+
+import com.ftf.coral.CoralCore;
+
 public class StringUtils {
 
     public static void trimAll(final String... strings) {
@@ -265,5 +269,77 @@ public class StringUtils {
             }
         }
         return -1;
+    }
+
+    public static boolean equals(String str1, String str2) {
+        return str1 == null ? str2 == null : str1.equals(str2);
+    }
+
+    public static boolean isEmpty(Object str) {
+        return (str == null || "".equals(str));
+    }
+
+    public static String cutPrefix(String string, final String prefix) {
+        if (string.startsWith(prefix)) {
+            string = string.substring(prefix.length());
+        }
+        return string;
+    }
+
+    public static String cutSuffix(String string, final String suffix) {
+        if (string.endsWith(suffix)) {
+            string = string.substring(0, string.length() - suffix.length());
+        }
+        return string;
+    }
+
+    public static String cutSurrounding(final String string, final String prefix, final String suffix) {
+        int start = 0;
+        int end = string.length();
+
+        if (string.startsWith(prefix)) {
+            start = prefix.length();
+        }
+        if (string.endsWith(suffix)) {
+            end -= suffix.length();
+        }
+
+        if (end <= start) {
+            return StringPool.EMPTY;
+        }
+
+        return string.substring(start, end);
+    }
+
+    public static byte[] getBytes(final String string) {
+        try {
+            return string.getBytes(CoralCore.encoding);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static byte[] getBytes(final String string, final String charsetName) {
+        try {
+            return string.getBytes(charsetName);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String newString(final byte[] bytes) {
+        try {
+            return new String(bytes, CoralCore.encoding);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String newString(final byte[] bytes, final String charsetName) {
+        try {
+            return new String(bytes, charsetName);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

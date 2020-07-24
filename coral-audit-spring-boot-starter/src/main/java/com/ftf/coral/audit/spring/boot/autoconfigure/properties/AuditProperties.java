@@ -2,7 +2,7 @@ package com.ftf.coral.audit.spring.boot.autoconfigure.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "audit")
+@ConfigurationProperties(prefix = "coral.audit")
 public class AuditProperties {
 
     private boolean enabled = true;

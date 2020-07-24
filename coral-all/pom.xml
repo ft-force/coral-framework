@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.ft-force</groupId>
         <artifactId>coral-parent</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>coral-all</artifactId>
@@ -19,11 +19,19 @@
         </dependency>
         <dependency>
             <groupId>com.github.ft-force</groupId>
+            <artifactId>coral-lock-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ft-force</groupId>
             <artifactId>coral-audit-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>com.github.ft-force</groupId>
             <artifactId>coral-masking-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ft-force</groupId>
+            <artifactId>coral-auth-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 </project>

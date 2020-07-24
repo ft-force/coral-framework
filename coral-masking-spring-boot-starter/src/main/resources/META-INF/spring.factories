@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.ftf.coral.masking.spring.boot.autoconfigure.DataMaskingAutoConfiguration

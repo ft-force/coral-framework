@@ -4,7 +4,7 @@ import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "masking")
+@ConfigurationProperties(prefix = "coral.masking")
 public class DataMaskingProperties {
 
     private boolean enabled = true;
