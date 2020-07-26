@@ -3,6 +3,7 @@ package com.ftf.coral.auth.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -33,7 +34,12 @@ public class HandlerAppAuthInterceptor extends HandlerInterceptorAdapter {
 
             if (appAuth != null) { // 需要进行APP认证
 
-                return signer.verify(new HttpServletRequestWapper(request));
+                boolean verifyResult = signer.verify(new HttpServletRequestWapper(request));
+
+                if (!verifyResult) {
+                    response.sendError(HttpStatus.UNAUTHORIZED.value(), "Authentication failed.");
+                    return verifyResult;
+                }
             }
         }
 

@@ -1,7 +1,8 @@
 package com.ftf.coral.core.exception;
 
-@SuppressWarnings("serial")
-public class AuthException extends RuntimeException {
+public class AuthException extends BusinessException {
+
+    private static final long serialVersionUID = 1L;
 
     public AuthException() {
         super();

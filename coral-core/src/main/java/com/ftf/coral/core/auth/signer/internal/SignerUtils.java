@@ -1,5 +1,6 @@
 package com.ftf.coral.core.auth.signer.internal;
 
+import java.util.Date;
 import java.util.Locale;
 
 import org.joda.time.DateTimeZone;
@@ -22,5 +23,9 @@ public final class SignerUtils {
 
     public static long parseMillis(String signDate) {
         return timeFormatter.parseMillis(signDate);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(SignerUtils.formatTimestamp(new Date().getTime()));
     }
 }

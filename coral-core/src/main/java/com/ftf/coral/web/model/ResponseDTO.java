@@ -2,6 +2,8 @@ package com.ftf.coral.web.model;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ResponseDTO<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +45,7 @@ public class ResponseDTO<T> implements Serializable {
     /**
      * 0 成功，非0 失败
      */
+    @JsonIgnore
     public boolean isSuccess() {
         return code == 0;
     }
