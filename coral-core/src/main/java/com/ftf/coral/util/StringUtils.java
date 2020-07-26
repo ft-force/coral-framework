@@ -17,10 +17,6 @@ public class StringUtils {
 
     /**
      * 判断字符串s是否以c开头
-     * 
-     * @param s
-     * @param c
-     * @return
      */
     public static boolean startsWithChar(String s, char c) {
         if (s.length() == 0) {
@@ -31,9 +27,6 @@ public class StringUtils {
 
     /**
      * 判断字符串是否只包含数字
-     * 
-     * @param string
-     * @return
      */
     public static boolean containsOnlyDigits(final CharSequence string) {
         int size = string.length();
@@ -48,10 +41,6 @@ public class StringUtils {
 
     /**
      * 将src字符串根据指定的字符串d进行拆分，拆分为几个字符串数组
-     * 
-     * @param src
-     * @param d
-     * @return
      */
     public static String[] splitc(final String src, final String d) {
         if ((d.length() == 0) || (src.length() == 0)) {
@@ -62,13 +51,6 @@ public class StringUtils {
 
     /**
      * 将source字符串根据delimiters进行拆分
-     *
-     * @param src
-     *            source to examine
-     * @param delimiters
-     *            char array with delimiter characters
-     *
-     * @return array of tokens
      */
     public static String[] splitc(final String src, final char[] delimiters) {
         if ((delimiters.length == 0) || (src.length() == 0)) {
@@ -122,9 +104,6 @@ public class StringUtils {
 
     /**
      * 判断字符串是否为空
-     * 
-     * @param string
-     * @return
      */
     public static boolean isEmpty(final CharSequence string) {
         return ((string == null) || (string.length() == 0));
@@ -132,9 +111,6 @@ public class StringUtils {
 
     /**
      * 判断字符串包含空格外的字符
-     * 
-     * @param string
-     * @return
      */
     public static boolean isBlank(final String string) {
         return !isNotBlank(string);
@@ -142,9 +118,6 @@ public class StringUtils {
 
     /**
      * 判断字符串包含空格外的字符
-     * 
-     * @param string
-     * @return
      */
     public static boolean isNotBlank(final String string) {
         return ((string != null) && !containsOnlyWhitespaces(string));
@@ -152,9 +125,6 @@ public class StringUtils {
 
     /**
      * 判断字符串是否只有空格
-     * 
-     * @param string
-     * @return
      */
     public static boolean containsOnlyWhitespaces(final CharSequence string) {
         int size = string.length();
@@ -169,10 +139,6 @@ public class StringUtils {
 
     /**
      * 忽略大小写，找出subS字符串在给定的src字符串中第一次出现的位置
-     * 
-     * @param src
-     * @param subS
-     * @return
      */
     public static int indexOfIgnoreCase(final String src, final String subS) {
         return indexOfIgnoreCase(src, subS, 0, src.length());
@@ -341,5 +307,16 @@ public class StringUtils {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String join(String joiner, String... parts) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            builder.append(parts[i]);
+            if (i < parts.length - 1) {
+                builder.append(joiner);
+            }
+        }
+        return builder.toString();
     }
 }

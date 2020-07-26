@@ -1,10 +1,10 @@
-package com.ftf.coral.util.cipher;
+package com.ftf.coral.core.auth.credentials;
 
 import com.ftf.coral.util.IDUtils;
 import com.ftf.coral.util.MD5Utils;
 import com.ftf.coral.util.SaltUtils;
 
-public class CredentialHelper {
+public class CredentialUtils {
 
     public static String getAccessKeyId() {
 

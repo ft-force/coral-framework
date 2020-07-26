@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.ft-force</groupId>
         <artifactId>coral-parent</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.0.3</version>
     </parent>
 
     <artifactId>coral-core</artifactId>
@@ -34,6 +34,11 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
         </dependency>
     </dependencies>
 </project>
