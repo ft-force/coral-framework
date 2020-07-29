@@ -43,7 +43,7 @@ public abstract class AbstractSigner implements Signer {
 
         StringBuilder builder = new StringBuilder();
         Iterator<Map.Entry<String, String>> pairs2 = sorted.entrySet().iterator();
-        while (pairs.hasNext()) {
+        while (pairs2.hasNext()) {
             Map.Entry<String, String> pair = pairs2.next();
             builder.append(pair.getKey());
             builder.append("=");
