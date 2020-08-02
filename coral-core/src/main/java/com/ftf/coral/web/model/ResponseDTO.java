@@ -31,6 +31,12 @@ public class ResponseDTO<T> implements Serializable {
         return this;
     }
 
+    public ResponseDTO<T> failure(String message) {
+        this.code = -1;
+        this.message = message;
+        return this;
+    }
+
     public ResponseDTO<T> failure(int code) {
         this.code = code;
         return this;
