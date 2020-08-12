@@ -1,4 +1,4 @@
-package com.ftf.coral.core.runtime;
+package com.ftf.coral.runtime;
 
 import java.util.concurrent.ConcurrentHashMap;
 

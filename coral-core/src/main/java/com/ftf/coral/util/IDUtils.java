@@ -17,7 +17,6 @@ public class IDUtils {
     public static String generateShort8Uuid() {
         StringBuffer shortBuffer = new StringBuffer();
         String uuid = generateId();
-        System.out.println(uuid);
         for (int i = 0; i < 8; i++) {
             String str = uuid.substring(i * 4, i * 4 + 4);
             int x = Integer.parseInt(str, 16);

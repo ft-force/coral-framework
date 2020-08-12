@@ -6,6 +6,116 @@ import com.ftf.coral.CoralCore;
 
 public class StringUtils {
 
+    // ---------------------------------------------------------------- replace
+
+    /**
+     * Replaces all occurrences of a certain pattern in a string with a
+     * replacement string. This is the fastest replace function known to author.
+     */
+    public static String replace(final String s, final String sub, final String with) {
+        if (sub.isEmpty()) {
+            return s;
+        }
+        int c = 0;
+        int i = s.indexOf(sub, c);
+        if (i == -1) {
+            return s;
+        }
+        int length = s.length();
+        StringBuilder sb = new StringBuilder(length + with.length());
+        do {
+            sb.append(s, c, i);
+            sb.append(with);
+            c = i + sub.length();
+        } while ((i = s.indexOf(sub, c)) != -1);
+        if (c < length) {
+            sb.append(s, c, length);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Replaces all occurrences of a character in a string.
+     */
+    public static String replaceChar(final String s, final char sub, final char with) {
+        int startIndex = s.indexOf(sub);
+        if (startIndex == -1) {
+            return s;
+        }
+        char[] str = s.toCharArray();
+        for (int i = startIndex; i < str.length; i++) {
+            if (str[i] == sub) {
+                str[i] = with;
+            }
+        }
+        return new String(str);
+    }
+
+    /**
+     * Replaces all occurrences of a characters in a string.
+     */
+    public static String replaceChars(final String s, final char[] sub, final char[] with) {
+        char[] str = s.toCharArray();
+        for (int i = 0; i < str.length; i++) {
+            char c = str[i];
+            for (int j = 0; j < sub.length; j++) {
+                if (c == sub[j]) {
+                    str[i] = with[j];
+                    break;
+                }
+            }
+        }
+        return new String(str);
+    }
+
+    /**
+     * Replaces the very first occurrence of a substring with supplied string.
+     */
+    public static String replaceFirst(final String s, final String sub, final String with) {
+        int i = s.indexOf(sub);
+        if (i == -1) {
+            return s;
+        }
+        return s.substring(0, i) + with + s.substring(i + sub.length());
+    }
+
+    /**
+     * Replaces the very first occurrence of a character in a string.
+     */
+    public static String replaceFirst(final String s, final char sub, final char with) {
+        int index = s.indexOf(sub);
+        if (index == -1) {
+            return s;
+        }
+        char[] str = s.toCharArray();
+        str[index] = with;
+        return new String(str);
+    }
+
+    /**
+     * Replaces the very last occurrence of a substring with supplied string.
+     */
+    public static String replaceLast(final String s, final String sub, final String with) {
+        int i = s.lastIndexOf(sub);
+        if (i == -1) {
+            return s;
+        }
+        return s.substring(0, i) + with + s.substring(i + sub.length());
+    }
+
+    /**
+     * Replaces the very last occurrence of a character in a string.
+     */
+    public static String replaceLast(final String s, final char sub, final char with) {
+        int index = s.lastIndexOf(sub);
+        if (index == -1) {
+            return s;
+        }
+        char[] str = s.toCharArray();
+        str[index] = with;
+        return new String(str);
+    }
+
     public static void trimAll(final String... strings) {
         for (int i = 0; i < strings.length; i++) {
             String string = strings[i];
@@ -318,5 +428,22 @@ public class StringUtils {
             }
         }
         return builder.toString();
+    }
+
+    // ---------------------------------------------------------------- hex
+
+    /**
+     * Converts bytes to hex string.
+     */
+    public static String toHexString(final byte[] bytes) {
+        char[] chars = new char[bytes.length * 2];
+
+        int i = 0;
+        for (byte b : bytes) {
+            chars[i++] = CharUtils.int2hex((b & 0xF0) >> 4);
+            chars[i++] = CharUtils.int2hex(b & 0x0F);
+        }
+
+        return new String(chars);
     }
 }

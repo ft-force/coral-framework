@@ -13,6 +13,10 @@ public class CollectionUtils {
         return array != null && array.length > 0;
     }
 
+    public static boolean isNotEmpty(byte[] array) {
+        return array != null && array.length > 0;
+    }
+
     public static boolean isNotEmpty(Collection<?> collection) {
         return false == isEmpty(collection);
     }

@@ -1,11 +1,11 @@
-package com.ftf.coral.core.runtime.spring.context;
+package com.ftf.coral.runtime.spring.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-import com.ftf.coral.core.runtime.CoralContext;
+import com.ftf.coral.runtime.CoralContext;
 
 @Component
 public class ApplicationContextSupport implements ApplicationContextAware {

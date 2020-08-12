@@ -17,9 +17,9 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.core.Ordered;
 
-import com.ftf.coral.core.runtime.spring.util.SpringProxyUtils;
 import com.ftf.coral.masking.annotation.DataMasking;
 import com.ftf.coral.masking.interceptor.DataMaskingInterceptor;
+import com.ftf.coral.runtime.spring.util.SpringProxyUtils;
 import com.ftf.coral.util.CollectionUtils;
 
 public class DataMaskingMethodScanner extends AbstractAutoProxyCreator {

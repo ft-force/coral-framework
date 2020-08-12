@@ -1,4 +1,4 @@
-package com.ftf.coral.core.runtime.spring.util;
+package com.ftf.coral.runtime.spring.util;
 
 import java.lang.reflect.Field;
 
