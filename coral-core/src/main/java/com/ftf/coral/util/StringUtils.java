@@ -419,13 +419,21 @@ public class StringUtils {
         }
     }
 
-    public static String join(String joiner, String... parts) {
+    public static String joinWithDelimiter(String delimiter, String... parts) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {
             builder.append(parts[i]);
             if (i < parts.length - 1) {
-                builder.append(joiner);
+                builder.append(delimiter);
             }
+        }
+        return builder.toString();
+    }
+
+    public static String join(String... parts) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            builder.append(parts[i]);
         }
         return builder.toString();
     }

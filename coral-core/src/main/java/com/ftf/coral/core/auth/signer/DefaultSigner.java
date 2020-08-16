@@ -156,7 +156,8 @@ public class DefaultSigner extends AbstractSigner {
 
         String signature = Base64.encodeBase64String(hmacsha256);
 
-        String signedHeaderStr = StringUtils.join(" ", signedHeaders.toArray(new String[signedHeaders.size()]));
+        String signedHeaderStr = StringUtils.joinWithDelimiter(" ",
+                        signedHeaders.toArray(new String[signedHeaders.size()]));
 
         StringBuilder authHeaderBuilder = new StringBuilder();
         authHeaderBuilder.append("hmac").append(" ").append("username=\"").append(credentials.getAccessKeyId())
