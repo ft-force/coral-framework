@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.ft-force</groupId>
         <artifactId>coral-parent</artifactId>
-        <version>0.0.8</version>
+        <version>0.0.9</version>
     </parent>
 
     <artifactId>coral-core</artifactId>
@@ -23,6 +23,11 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <!-- mybatis 分页 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
         </dependency>
         <!-- <dependency> <groupId>com.hubspot.jackson</groupId> <artifactId>jackson-datatype-protobuf</artifactId> <version>0.9.11-jackson2.9</version> 
             </dependency> -->
