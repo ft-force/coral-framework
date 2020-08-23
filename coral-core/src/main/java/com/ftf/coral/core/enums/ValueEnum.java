@@ -1,6 +1,6 @@
 package com.ftf.coral.core.enums;
 
-public interface ValueEnum {
+public interface ValueEnum<T> {
 
-    public String getValue();
+    public T getValue();
 }

@@ -1,4 +1,4 @@
-package com.ftf.coral.web.model;
+package com.ftf.coral.business.model;
 
 import java.io.Serializable;
 

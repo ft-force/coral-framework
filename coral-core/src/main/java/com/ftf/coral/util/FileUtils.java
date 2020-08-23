@@ -21,6 +21,7 @@ public class FileUtils {
     private static final String MSG_UNABLE_TO_DELETE = "Unable to delete: ";
     private static final String MSG_CANT_CREATE = "Can't create: ";
 
+    private static final int ZERO = 0;
     private static final String USER_HOME = "~";
     private static final int NEGATIVE_ONE = -1;
 
@@ -192,9 +193,58 @@ public class FileUtils {
         return bytes;
     }
 
+    public static void writeBytes(final String dest, final byte[] data) throws IOException {
+        writeBytes(file(dest), data);
+    }
+
+    public static void writeBytes(final File dest, final byte[] data) throws IOException {
+        writeBytes(dest, data, ZERO, data.length);
+    }
+
+    public static void writeBytes(final String dest, final byte[] data, final int off, final int len)
+                    throws IOException {
+        writeBytes(file(dest), data, off, len);
+    }
+
+    public static void writeBytes(final File dest, final byte[] data, final int off, final int len) throws IOException {
+        outBytes(dest, data, off, len, false);
+    }
+
+    public static void appendBytes(final String dest, final byte[] data) throws IOException {
+        appendBytes(file(dest), data);
+    }
+
+    public static void appendBytes(final String dest, final byte[] data, final int off, final int len)
+                    throws IOException {
+        appendBytes(file(dest), data, off, len);
+    }
+
+    public static void appendBytes(final File dest, final byte[] data) throws IOException {
+        appendBytes(dest, data, ZERO, data.length);
+    }
+
+    public static void appendBytes(final File dest, final byte[] data, final int off, final int len)
+                    throws IOException {
+        outBytes(dest, data, off, len, true);
+    }
+
     private static void checkExists(final File file) throws FileNotFoundException {
         if (!file.exists()) {
             throw new FileNotFoundException(MSG_NOT_FOUND + file);
+        }
+    }
+
+    protected static void outBytes(final File dest, final byte[] data, final int off, final int len,
+                    final boolean append) throws IOException {
+        if (dest.exists()) {
+            checkIsFile(dest);
+        }
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(dest, append);
+            out.write(data, off, len);
+        } finally {
+            StreamUtil.close(out);
         }
     }
 
@@ -241,6 +291,41 @@ public class FileUtils {
 
     private static UnicodeInputStream unicodeInputStreamOf(final InputStream input, final String targetEncoding) {
         return new UnicodeInputStream(input, targetEncoding);
+    }
+
+    // ---------------------------------------------------- temp
+
+    private static String tempPrefix() {
+        return "ftf-";
+    }
+
+    public static File createTempFile() throws IOException {
+        return createTempFile(tempPrefix(), null, null, true);
+    }
+
+    public static File createTempFile(final String prefix, final String suffix, final File tempDir,
+                    final boolean create) throws IOException {
+        File file = createTempFile(prefix, suffix, tempDir);
+        file.delete();
+        if (create) {
+            file.createNewFile();
+        }
+        return file;
+    }
+
+    public static File createTempFile(final String prefix, final String suffix, final File tempDir) throws IOException {
+        int exceptionsCount = ZERO;
+        while (true) {
+            try {
+                return File.createTempFile(prefix, suffix, tempDir).getCanonicalFile();
+            } catch (IOException ioex) { // fixes
+                                         // java.io.WinNTFileSystem.createFileExclusively
+                                         // access denied
+                if (++exceptionsCount >= 50) {
+                    throw ioex;
+                }
+            }
+        }
     }
 
     // ---------------------------------------------------- configs

@@ -34,7 +34,7 @@ public class HttpServletRequestWapper implements Request<HttpServletRequest> {
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
 
-            headers.put(headerName, httpServletRequest.getHeader(headerName));
+            headers.put(headerName.toLowerCase(), httpServletRequest.getHeader(headerName));
         }
 
         return headers;
