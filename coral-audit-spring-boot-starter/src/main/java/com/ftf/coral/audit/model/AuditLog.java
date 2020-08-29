@@ -12,7 +12,7 @@ public class AuditLog {
 
     private Date eventTime;
 
-    private Exception exception;
+    private Throwable exception;
 
     public String getResourceType() {
         return resourceType;
@@ -46,11 +46,11 @@ public class AuditLog {
         this.eventTime = eventTime;
     }
 
-    public Exception getException() {
+    public Throwable getException() {
         return exception;
     }
 
-    public void setException(Exception exception) {
+    public void setException(Throwable exception) {
         this.exception = exception;
     }
 }

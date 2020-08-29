@@ -13,9 +13,12 @@ public class HttpRequestAuditLogHandler implements AuditLogHandler<HttpRequestAu
     @Override
     public void dealAuditLog(HttpRequestAuditLog auditLog) {
 
-        LOGGER.info("[ResourceType:{}][EventType:{} EventTime:{}][{} {} {}][{}][{}]", auditLog.getResourceType(),
-                        auditLog.getEventType(), DateUtils.getSimpleDateString(auditLog.getEventTime()),
-                        auditLog.getHttpMethod(), auditLog.getRequestURI(), auditLog.getRequestQueryString(),
-                        auditLog.getResponseStatus(), auditLog.getRemoteAddr(), auditLog.getException());
+        // @formatter:off
+        LOGGER.info("[ResourceType:{}][EventType:{} EventTime:{}][{} {} {}][{}][{}]", 
+            auditLog.getResourceType(),
+            auditLog.getEventType(), DateUtils.getSimpleDateString(auditLog.getEventTime()),
+            auditLog.getHttpMethod(), auditLog.getRequestURI(), auditLog.getRequestQueryString(),
+            auditLog.getResponseStatus(), auditLog.getRemoteAddr(), auditLog.getException());
+        // @formatter:on
     }
 }
