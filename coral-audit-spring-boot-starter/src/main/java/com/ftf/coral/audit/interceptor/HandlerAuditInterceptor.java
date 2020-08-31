@@ -1,7 +1,6 @@
 package com.ftf.coral.audit.interceptor;
 
 import java.util.Collections;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,16 +14,28 @@ import com.ftf.coral.audit.annotation.Audit;
 import com.ftf.coral.audit.model.HttpRequestAuditLog;
 import com.ftf.coral.audit.util.IPUtils;
 import com.ftf.coral.util.StringUtils;
+import com.ftf.coral.util.SystemClock;
 
 public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
 
+    private ThreadLocal<Long> startTimeHolder = new ThreadLocal<>();
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+        throws Exception {
+
+        startTimeHolder.set(SystemClock.now());
+
+        return super.preHandle(request, response, handler);
+    }
+
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-                    throws Exception {
+        throws Exception {
 
         if (handler instanceof HandlerMethod) {
 
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            HandlerMethod handlerMethod = (HandlerMethod)handler;
 
             Audit audit = handlerMethod.getMethodAnnotation(Audit.class);
 
@@ -40,13 +51,15 @@ public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
             } else {
                 auditLog.setEventType(request.getRequestURI());
             }
-            auditLog.setEventTime(new Date());
+            auditLog.setEventId(request.getHeader("x-request-id")); // 事件ID
+            auditLog.setStartTime(startTimeHolder.get());
+            auditLog.setTimeTaken(SystemClock.now() - startTimeHolder.get()); // 耗时
             auditLog.setRemoteAddr(IPUtils.getRemoteIP(request));
             auditLog.setHttpMethod(request.getMethod());
             auditLog.setRequestURI(request.getRequestURI());
             auditLog.setRequestQueryString(request.getQueryString());
             auditLog.setRequestHeaders(Collections.list(request.getHeaderNames()).stream()
-                            .collect(Collectors.toMap(h -> h, request::getHeader)));
+                .collect(Collectors.toMap(h -> h, request::getHeader)));
             auditLog.setRequestBody(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
             auditLog.setResponseStatus(response.getStatus());
             auditLog.setException(ex);

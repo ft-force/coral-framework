@@ -1,7 +1,5 @@
 package com.ftf.coral.audit.model;
 
-import java.util.Date;
-
 public class AuditLog {
 
     private String resourceType;
@@ -10,7 +8,11 @@ public class AuditLog {
 
     private String eventType;
 
-    private Date eventTime;
+    private String eventId;
+
+    private Long startTime;
+
+    private Long timeTaken;
 
     private Throwable exception;
 
@@ -38,12 +40,28 @@ public class AuditLog {
         this.eventType = eventType;
     }
 
-    public Date getEventTime() {
-        return eventTime;
+    public String getEventId() {
+        return eventId;
     }
 
-    public void setEventTime(Date eventTime) {
-        this.eventTime = eventTime;
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
+    }
+
+    public Long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getTimeTaken() {
+        return timeTaken;
+    }
+
+    public void setTimeTaken(Long timeTaken) {
+        this.timeTaken = timeTaken;
     }
 
     public Throwable getException() {
