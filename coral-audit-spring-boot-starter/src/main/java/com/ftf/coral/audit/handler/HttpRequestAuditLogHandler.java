@@ -16,10 +16,10 @@ public class HttpRequestAuditLogHandler implements AuditLogHandler<HttpRequestAu
     public void dealAuditLog(HttpRequestAuditLog auditLog) {
 
         // @formatter:off
-        LOGGER.info("[ResourceType:{}][EventType:{} EventId:{} StartTime:{} TimeTaken:{}ms][{} {} {}][{}][{}]", 
+        LOGGER.info("[ResourceType:{}][EventType:{} EventId:{} StartTime:{} TimeTaken:{}ms][{} {}?{} {}][{}][{}]", 
             auditLog.getResourceType(),
             auditLog.getEventType(), auditLog.getEventId(), DateUtils.getSimpleDateString(new Date(auditLog.getStartTime())), auditLog.getTimeTaken(),
-            auditLog.getHttpMethod(), auditLog.getRequestURI(), auditLog.getRequestQueryString(),
+            auditLog.getHttpMethod(), auditLog.getRequestURI(), auditLog.getRequestQueryString(), auditLog.getHttpProtocol(),
             auditLog.getResponseStatus(), auditLog.getRemoteAddr(), auditLog.getException());
         // @formatter:on
     }

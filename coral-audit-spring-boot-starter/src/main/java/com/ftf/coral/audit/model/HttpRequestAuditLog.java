@@ -6,6 +6,8 @@ public class HttpRequestAuditLog extends AuditLog {
 
     private String remoteAddr;
 
+    private String httpProtocol;
+
     private String httpMethod;
 
     private String requestURI;
@@ -24,6 +26,14 @@ public class HttpRequestAuditLog extends AuditLog {
 
     public void setRemoteAddr(String remoteAddr) {
         this.remoteAddr = remoteAddr;
+    }
+
+    public String getHttpProtocol() {
+        return httpProtocol;
+    }
+
+    public void setHttpProtocol(String httpProtocol) {
+        this.httpProtocol = httpProtocol;
     }
 
     public String getHttpMethod() {

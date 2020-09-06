@@ -20,7 +20,7 @@ public class HandlerAppAuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-                    throws Exception {
+        throws Exception {
 
         if ("options".equalsIgnoreCase(request.getMethod())) {
             return super.preHandle(request, response, handler);
@@ -28,7 +28,7 @@ public class HandlerAppAuthInterceptor extends HandlerInterceptorAdapter {
 
         if (handler instanceof HandlerMethod) {
 
-            HandlerMethod handlerTarget = (HandlerMethod) handler;
+            HandlerMethod handlerTarget = (HandlerMethod)handler;
 
             AppAuth appAuth = handlerTarget.getMethod().getAnnotation(AppAuth.class);
 
@@ -43,6 +43,6 @@ public class HandlerAppAuthInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
-        return Boolean.TRUE;
+        return true;
     }
 }

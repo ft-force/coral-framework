@@ -9,8 +9,8 @@ public class StringUtils {
     // ---------------------------------------------------------------- replace
 
     /**
-     * Replaces all occurrences of a certain pattern in a string with a
-     * replacement string. This is the fastest replace function known to author.
+     * Replaces all occurrences of a certain pattern in a string with a replacement string. This is the fastest replace
+     * function known to author.
      */
     public static String replace(final String s, final String sub, final String with) {
         if (sub.isEmpty()) {
@@ -154,7 +154,7 @@ public class StringUtils {
      */
     public static String[] splitc(final String src, final String d) {
         if ((d.length() == 0) || (src.length() == 0)) {
-            return new String[] { src };
+            return new String[] {src};
         }
         return splitc(src, d.toCharArray());
     }
@@ -164,7 +164,7 @@ public class StringUtils {
      */
     public static String[] splitc(final String src, final char[] delimiters) {
         if ((delimiters.length == 0) || (src.length() == 0)) {
-            return new String[] { src };
+            return new String[] {src};
         }
         char[] srcc = src.toCharArray();
 
@@ -182,7 +182,7 @@ public class StringUtils {
             count++;
             s = CharUtils.findFirstDiff(srcc, 1, delimiters);
             if (s == -1) { // nothing after delimiters
-                return new String[] { "", "" };
+                return new String[] {"", ""};
             }
             start[1] = s; // new start
         }
@@ -270,7 +270,8 @@ public class StringUtils {
         sub = sub.toLowerCase();
         int total = endIndex - sublen + 1;
         char c = sub.charAt(0);
-        mainloop: for (int i = startIndex; i < total; i++) {
+        mainloop:
+        for (int i = startIndex; i < total; i++) {
             if (Character.toLowerCase(src.charAt(i)) != c) {
                 continue;
             }
@@ -420,6 +421,11 @@ public class StringUtils {
     }
 
     public static String joinWithDelimiter(String delimiter, String... parts) {
+
+        if (parts.length == 1) {
+            return parts[0];
+        }
+
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {
             builder.append(parts[i]);
@@ -431,6 +437,11 @@ public class StringUtils {
     }
 
     public static String join(String... parts) {
+
+        if (parts.length == 1) {
+            return parts[0];
+        }
+
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {
             builder.append(parts[i]);
