@@ -9,7 +9,7 @@
 
     <groupId>com.github.ft-force</groupId>
     <artifactId>coral-parent</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -61,7 +61,7 @@
         <okhttp.version>4.7.2</okhttp.version>
         <protobuf.version>3.9.0</protobuf.version>
 
-        <coral.version>0.1.1</coral.version>
+        <coral.version>0.1.2</coral.version>
     </properties>
 
     <dependencies>
@@ -202,6 +202,48 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
                 <version>${protobuf.version}</version>
+            </dependency>
+
+            <!-- 漏洞修复 2.9.10.1 -> 2.9.10.5 -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.9.10.5</version>
+            </dependency>
+            <!-- 漏洞修复 5.1.11 -> 5.1.13 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>5.1.13.RELEASE</version>
+            </dependency>
+            <!-- 漏洞修复 2.0.27 -> 2.1.1 -->
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-core</artifactId>
+                <version>2.1.1.Final</version>
+            </dependency>
+            <!-- 漏洞修复 1.23 -> 1.26 -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.26</version>
+            </dependency>
+            <!-- 漏洞修复 5.1.7.RELEASE -> 5.1.10.RELEASE -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>5.1.10.RELEASE</version>
+            </dependency>
+            <!-- 漏洞修复 2.1.5 -> 2.1.9 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-config-server</artifactId>
+                <version>2.1.9.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-config-client</artifactId>
+                <version>2.1.9.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
