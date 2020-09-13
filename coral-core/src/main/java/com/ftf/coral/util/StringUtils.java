@@ -1,6 +1,8 @@
 package com.ftf.coral.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.Iterator;
 
 import com.ftf.coral.CoralCore;
 
@@ -433,6 +435,24 @@ public class StringUtils {
                 builder.append(delimiter);
             }
         }
+        return builder.toString();
+    }
+
+    public static String joinWithDelimiter(String delimiter, Collection<?> parts) {
+
+        if (CollectionUtils.isEmpty(parts)) {
+            return "";
+        }
+
+        StringBuilder builder = new StringBuilder();
+        Iterator<?> it = parts.iterator();
+        while (it.hasNext()) {
+            builder.append(it.next());
+            if (it.hasNext()) {
+                builder.append(delimiter);
+            }
+        }
+
         return builder.toString();
     }
 

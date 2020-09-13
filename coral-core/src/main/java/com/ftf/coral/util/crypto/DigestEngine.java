@@ -1,4 +1,4 @@
-package com.ftf.coral.util.crypt;
+package com.ftf.coral.util.crypto;
 
 import java.io.BufferedInputStream;
 import java.io.File;

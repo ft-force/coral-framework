@@ -11,7 +11,7 @@ import java.io.RandomAccessFile;
 import com.ftf.coral.CoralCore;
 import com.ftf.coral.core.io.StreamUtil;
 import com.ftf.coral.runtime.system.SystemUtil;
-import com.ftf.coral.util.crypt.DigestEngine;
+import com.ftf.coral.util.crypto.DigestEngine;
 
 public class FileUtils {
 
