@@ -34,7 +34,7 @@ public class BeanPath {
 
     private static final char OPEN_SQUARE_BRACKET = '[';
     private static final char CLOSE_SQUARE_BRACKET = ']';
-    private static final char[] INDEX_CHARS = new char[] { OPEN_SQUARE_BRACKET, PERIOD };
+    private static final char[] INDEX_CHARS = new char[] {OPEN_SQUARE_BRACKET, PERIOD};
 
     private final String name;
     private String index;
@@ -181,7 +181,7 @@ public class BeanPath {
             }
 
         } else if (bean instanceof List) {
-            List<Object> list = (List<Object>) bean;
+            List<Object> list = (List<Object>)bean;
             if ("*".equals(index)) {
                 subList.addAll(list);
             } else {
@@ -201,7 +201,7 @@ public class BeanPath {
 
         } else if (bean instanceof List) {
 
-            List<Object> list = (List<Object>) bean;
+            List<Object> list = (List<Object>)bean;
             list.set(ndx, value);
         }
 
@@ -214,12 +214,12 @@ public class BeanPath {
             return bean;
         }
         if (bean instanceof Map) {
-            Map<String, Object> map = (Map<String, Object>) bean;
+            Map<String, Object> map = (Map<String, Object>)bean;
             return map.get(property);
         } else {
             try {
-                Method getMethod = bean.getClass()
-                                .getMethod("get" + property.substring(0, 1).toUpperCase() + property.substring(1));
+                Method getMethod =
+                    bean.getClass().getMethod("get" + property.substring(0, 1).toUpperCase() + property.substring(1));
                 return getMethod.invoke(bean);
             } catch (Exception e) {
                 logger.debug("未找到对应getter方法 class={}, property={}", bean.getClass(), property);
@@ -236,7 +236,7 @@ public class BeanPath {
         }
 
         if (bean instanceof Map) {
-            Map<String, Object> map = (Map<String, Object>) bean;
+            Map<String, Object> map = (Map<String, Object>)bean;
             map.put(property, value);
         } else {
             try {
@@ -325,7 +325,7 @@ public class BeanPath {
 
         } else if (bean instanceof List) {
 
-            List<Object> list = (List<Object>) bean;
+            List<Object> list = (List<Object>)bean;
             if ("*".equals(index)) {
                 result = list.stream().map(processFunction::apply).collect(Collectors.toList());
             } else {
@@ -345,7 +345,7 @@ public class BeanPath {
         switch (this.name) {
             case "*":
                 if (bean instanceof Map) {
-                    Map<String, Object> map = (Map<String, Object>) bean;
+                    Map<String, Object> map = (Map<String, Object>)bean;
                     keySet = map.keySet();
                 } else {
                     // java bean对象，获取所有属性

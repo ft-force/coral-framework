@@ -15,7 +15,7 @@ import com.ftf.coral.audit.spring.boot.autoconfigure.properties.AuditProperties;
 import com.ftf.coral.spring.boot.autoconfigure.CoralAutoConfiguration;
 
 @Configuration
-@EnableConfigurationProperties({ AuditProperties.class })
+@EnableConfigurationProperties({AuditProperties.class})
 @ConditionalOnProperty(prefix = "coral.audit", name = "enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter(CoralAutoConfiguration.class)
 public class AuditAutoConfiguration extends WebMvcConfigurerAdapter {

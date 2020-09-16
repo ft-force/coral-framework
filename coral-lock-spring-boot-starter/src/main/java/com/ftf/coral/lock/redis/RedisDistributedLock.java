@@ -30,7 +30,7 @@ public class RedisDistributedLock extends AbstractDistributedLock {
      */
     static {
         UNLOCK_LUA = "if redis.call(\"get\",KEYS[1]) == ARGV[1] " + "then " + "    return redis.call(\"del\",KEYS[1]) "
-                        + "else " + "    return 0 " + "end ";
+            + "else " + "    return 0 " + "end ";
     }
 
     public RedisDistributedLock(StringRedisTemplate redisTemplate) {
@@ -57,13 +57,13 @@ public class RedisDistributedLock extends AbstractDistributedLock {
 
     private boolean setRedis(final String key, final long expire) {
         try {
-            boolean status = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
+            boolean status = redisTemplate.execute((RedisCallback<Boolean>)connection -> {
                 String uuid = UUID.randomUUID().toString();
                 lockFlag.set(uuid);
                 byte[] keyByte = redisTemplate.getStringSerializer().serialize(key);
                 byte[] uuidByte = redisTemplate.getStringSerializer().serialize(uuid);
                 boolean result = connection.set(keyByte, uuidByte, Expiration.from(expire, TimeUnit.MILLISECONDS),
-                                RedisStringCommands.SetOption.ifAbsent());
+                    RedisStringCommands.SetOption.ifAbsent());
                 return result;
             });
             return status;
@@ -79,11 +79,11 @@ public class RedisDistributedLock extends AbstractDistributedLock {
         try {
             // 使用lua脚本删除redis中匹配value的key，可以避免由于方法执行时间过长而redis锁自动过期失效的时候误删其他线程的锁
             // spring自带的执行脚本方法中，集群模式直接抛出不支持执行脚本的异常，所以只能拿到原redis的connection来执行脚本
-            Boolean result = redisTemplate.execute((RedisCallback<Boolean>) connection -> {
+            Boolean result = redisTemplate.execute((RedisCallback<Boolean>)connection -> {
                 byte[] scriptByte = redisTemplate.getStringSerializer().serialize(UNLOCK_LUA);
                 return connection.eval(scriptByte, ReturnType.BOOLEAN, 1,
-                                redisTemplate.getStringSerializer().serialize(key),
-                                redisTemplate.getStringSerializer().serialize(lockFlag.get()));
+                    redisTemplate.getStringSerializer().serialize(key),
+                    redisTemplate.getStringSerializer().serialize(lockFlag.get()));
             });
             return result;
         } catch (Exception e) {

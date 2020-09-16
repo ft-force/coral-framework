@@ -39,8 +39,7 @@ public class PageRequest implements Serializable {
     }
 
     /**
-     * Returns size of the page. Page size refers to total numbers of items per
-     * page.
+     * Returns size of the page. Page size refers to total numbers of items per page.
      * 
      * @see #setSize(int)
      */
@@ -59,9 +58,8 @@ public class PageRequest implements Serializable {
     // ---------------------------------------------------------------- sort
 
     /**
-     * Returns sort 1-based index of column that should be sorted. If
-     * <code>0</code>, nothing should be sorted. Positive values represents
-     * ascending order, negative values descending.
+     * Returns sort 1-based index of column that should be sorted. If <code>0</code>, nothing should be sorted. Positive
+     * values represents ascending order, negative values descending.
      * <p>
      * By using the index we also hide the real column names.
      */

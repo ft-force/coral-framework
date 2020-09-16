@@ -17,7 +17,7 @@ import com.ftf.coral.core.auth.signer.DefaultSigner;
 import com.ftf.coral.spring.boot.autoconfigure.CoralAutoConfiguration;
 
 @Configuration
-@EnableConfigurationProperties({ AuthProperties.class })
+@EnableConfigurationProperties({AuthProperties.class})
 @ConditionalOnProperty(prefix = "coral.auth", name = "enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter(CoralAutoConfiguration.class)
 public class AuthAutoConfiguration extends WebMvcConfigurerAdapter {
@@ -34,8 +34,8 @@ public class AuthAutoConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration registration = registry
-                        .addInterceptor(new HandlerAppAuthInterceptor(new DefaultSigner()));
+        InterceptorRegistration registration =
+            registry.addInterceptor(new HandlerAppAuthInterceptor(new DefaultSigner()));
 
         if (properties.getPathPatterns() != null && properties.getPathPatterns().length > 0) {
             registration.addPathPatterns(properties.getPathPatterns());

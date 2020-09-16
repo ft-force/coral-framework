@@ -18,7 +18,7 @@ public class ReflectHelper {
     }
 
     public static Object getValueByFieldName(Object obj, String fieldName)
-                    throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 
         Field field = getFieldByFieldName(obj, fieldName);
 
@@ -38,7 +38,7 @@ public class ReflectHelper {
     }
 
     public static void setValueByFieldName(Object obj, String fieldName, Object value)
-                    throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+        throws SecurityException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 
         Field field = getFieldByFieldName(obj, fieldName);
 

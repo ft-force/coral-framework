@@ -20,7 +20,7 @@ public class TelephoneMaskingHandlerFunction implements Function<Object, Object>
 
         if (rawData instanceof String) {
 
-            String telephone = (String) rawData;
+            String telephone = (String)rawData;
             telephone = telephone.trim();
 
             int len = telephone.length();

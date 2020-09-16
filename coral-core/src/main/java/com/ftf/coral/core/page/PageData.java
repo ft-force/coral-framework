@@ -30,8 +30,7 @@ public class PageData<T> implements Serializable {
     protected final int lastIndex;
 
     /**
-     * Returns index of last item of page. On every page but last, last index
-     * equals to first index plus page size.
+     * Returns index of last item of page. On every page but last, last index equals to first index plus page size.
      */
     public int getLastIndex() {
         return lastIndex;
@@ -76,8 +75,7 @@ public class PageData<T> implements Serializable {
     protected final int pageItemsCount;
 
     /**
-     * Returns the number of shown items per page. Note that this value is
-     * calculated.
+     * Returns the number of shown items per page. Note that this value is calculated.
      */
     public int getPageItemsCount() {
         return pageItemsCount;
@@ -144,8 +142,7 @@ public class PageData<T> implements Serializable {
     // ---------------------------------------------------------------- checks
 
     /**
-     * Returns <code>true</code> if there is a next page, i.e. we are not at the
-     * last page.
+     * Returns <code>true</code> if there is a next page, i.e. we are not at the last page.
      */
     public boolean hasNextPage() {
         return currentPage < totalPages - 1;
@@ -159,8 +156,7 @@ public class PageData<T> implements Serializable {
     }
 
     /**
-     * Returns <code>true</code> if there is a previous page, i.e. we are not at
-     * the first page.
+     * Returns <code>true</code> if there is a previous page, i.e. we are not at the first page.
      */
     public boolean hasPreviousPage() {
         return currentPage > 1;
@@ -179,8 +175,8 @@ public class PageData<T> implements Serializable {
     @Override
     public String toString() {
         return new StringBuilder().append('[').append(currentPage).append(',').append(totalPages).append(',')
-                        .append(totalItems).append(',').append(firstIndex).append(',').append(lastIndex).append(',')
-                        .append(pageSize).append(']').toString();
+            .append(totalItems).append(',').append(firstIndex).append(',').append(lastIndex).append(',')
+            .append(pageSize).append(']').toString();
     }
 
     // ----------------------------------------------------------------

@@ -50,7 +50,7 @@ public class DefaultSigner extends AbstractSigner {
         final String stringToSign = createStringToSign(request, signedHeaders);
 
         request.addHeader(SignerConstants.AUTHORIZATION,
-                        buildAuthorizationHeader(request, stringToSign, credentials, signerParams, signedHeaders));
+            buildAuthorizationHeader(request, stringToSign, credentials, signerParams, signedHeaders));
     }
 
     @Override
@@ -117,7 +117,7 @@ public class DefaultSigner extends AbstractSigner {
                         return "SHA-256=" + sha256AndBase64;
                     }
                 } catch (Exception e) {
-                    throw new AuthException("calculating body digest error", (Throwable) e);
+                    throw new AuthException("calculating body digest error", (Throwable)e);
                 }
                 break;
 
@@ -150,19 +150,19 @@ public class DefaultSigner extends AbstractSigner {
     }
 
     private String buildAuthorizationHeader(Request<?> request, String stringToSign, Credential credentials,
-                    SignerRequestParams signerParams, List<String> signedHeaders) {
+        SignerRequestParams signerParams, List<String> signedHeaders) {
 
         byte[] hmacsha256 = HmacUtils.hmacSha256(credentials.getSecretAccessKey(), stringToSign);
 
         String signature = Base64.encodeBase64String(hmacsha256);
 
-        String signedHeaderStr = StringUtils.joinWithDelimiter(" ",
-                        signedHeaders.toArray(new String[signedHeaders.size()]));
+        String signedHeaderStr =
+            StringUtils.joinWithDelimiter(" ", signedHeaders.toArray(new String[signedHeaders.size()]));
 
         StringBuilder authHeaderBuilder = new StringBuilder();
         authHeaderBuilder.append("hmac").append(" ").append("username=\"").append(credentials.getAccessKeyId())
-                        .append("\", algorithm=\"").append(signerParams.getSigningAlgorithm()).append("\", headers=\"")
-                        .append(signedHeaderStr).append("\",signature=\"").append(signature).append("\"");
+            .append("\", algorithm=\"").append(signerParams.getSigningAlgorithm()).append("\", headers=\"")
+            .append(signedHeaderStr).append("\",signature=\"").append(signature).append("\"");
 
         return authHeaderBuilder.toString();
     }

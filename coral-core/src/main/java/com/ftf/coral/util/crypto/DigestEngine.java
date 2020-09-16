@@ -41,7 +41,8 @@ public interface DigestEngine {
                 bis = new BufferedInputStream(fis);
                 dis = new DigestInputStream(bis, messageDigest);
 
-                while (dis.read() != -1) {}
+                while (dis.read() != -1) {
+                }
             } finally {
                 StreamUtil.close(dis);
                 StreamUtil.close(bis);
@@ -107,8 +108,7 @@ public interface DigestEngine {
     }
 
     /**
-     * Returns digest of a file. Implementations may not read the whole file
-     * into the memory.
+     * Returns digest of a file. Implementations may not read the whole file into the memory.
      */
     public byte[] digest(final File file) throws IOException;
 

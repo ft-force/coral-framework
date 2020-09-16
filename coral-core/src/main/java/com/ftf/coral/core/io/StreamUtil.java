@@ -18,13 +18,15 @@ public class StreamUtil {
         if (closeable != null) {
             if (closeable instanceof Flushable) {
                 try {
-                    ((Flushable) closeable).flush();
-                } catch (IOException ignored) {}
+                    ((Flushable)closeable).flush();
+                } catch (IOException ignored) {
+                }
             }
 
             try {
                 closeable.close();
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
     }
 

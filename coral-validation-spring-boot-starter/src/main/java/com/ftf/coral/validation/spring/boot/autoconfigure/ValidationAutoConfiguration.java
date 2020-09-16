@@ -11,9 +11,9 @@ import com.ftf.coral.spring.boot.autoconfigure.CoralAutoConfiguration;
 import com.ftf.coral.validation.spring.boot.autoconfigure.properties.ValidationProperties;
 
 @Configuration
-@EnableConfigurationProperties({ ValidationProperties.class })
+@EnableConfigurationProperties({ValidationProperties.class})
 @ConditionalOnProperty(prefix = "coral.validation", name = "enabled", havingValue = "true")
-@AutoConfigureAfter({ CoralAutoConfiguration.class })
+@AutoConfigureAfter({CoralAutoConfiguration.class})
 public class ValidationAutoConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidationAutoConfiguration.class);

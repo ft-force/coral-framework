@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public class AuthorizationData {
 
-    private static String AUTH_HEADER_REGEX = "\\s*[Hh]mac\\s*username=\"(.+)\",\\s*algorithm=\"(.+)\",\\s*headers=\"(.+)\",\\s*signature=\"(.+)\"";
+    private static String AUTH_HEADER_REGEX =
+        "\\s*[Hh]mac\\s*username=\"(.+)\",\\s*algorithm=\"(.+)\",\\s*headers=\"(.+)\",\\s*signature=\"(.+)\"";
     private static Pattern AUTH_HEADER_PATTERN = Pattern.compile(AUTH_HEADER_REGEX, Pattern.CASE_INSENSITIVE);
 
     private String username;

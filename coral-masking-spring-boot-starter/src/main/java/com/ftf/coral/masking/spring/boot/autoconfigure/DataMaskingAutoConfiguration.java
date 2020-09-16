@@ -14,7 +14,7 @@ import com.ftf.coral.masking.spring.boot.autoconfigure.properties.DataMaskingPro
 import com.ftf.coral.spring.boot.autoconfigure.CoralAutoConfiguration;
 
 @Configuration
-@EnableConfigurationProperties({ DataMaskingProperties.class })
+@EnableConfigurationProperties({DataMaskingProperties.class})
 @ConditionalOnProperty(prefix = "coral.masking", name = "enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter(CoralAutoConfiguration.class)
 public class DataMaskingAutoConfiguration {

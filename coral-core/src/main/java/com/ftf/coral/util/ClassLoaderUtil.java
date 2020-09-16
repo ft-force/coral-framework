@@ -9,7 +9,7 @@ public class ClassLoaderUtil {
         if (System.getSecurityManager() == null) {
             return ClassLoader.getSystemClassLoader();
         } else {
-            return AccessController.doPrivileged((PrivilegedAction<ClassLoader>) ClassLoader::getSystemClassLoader);
+            return AccessController.doPrivileged((PrivilegedAction<ClassLoader>)ClassLoader::getSystemClassLoader);
         }
     }
 }

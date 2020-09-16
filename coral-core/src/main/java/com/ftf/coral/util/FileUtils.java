@@ -132,7 +132,7 @@ public class FileUtils {
     }
 
     protected static void outString(final File dest, final String data, final String encoding, final boolean append)
-                    throws IOException {
+        throws IOException {
         if (dest.exists()) {
             checkIsFile(dest);
         }
@@ -185,7 +185,7 @@ public class FileUtils {
             numToRead = count;
         }
 
-        byte[] bytes = new byte[(int) numToRead];
+        byte[] bytes = new byte[(int)numToRead];
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         randomAccessFile.readFully(bytes);
         randomAccessFile.close();
@@ -202,7 +202,7 @@ public class FileUtils {
     }
 
     public static void writeBytes(final String dest, final byte[] data, final int off, final int len)
-                    throws IOException {
+        throws IOException {
         writeBytes(file(dest), data, off, len);
     }
 
@@ -215,7 +215,7 @@ public class FileUtils {
     }
 
     public static void appendBytes(final String dest, final byte[] data, final int off, final int len)
-                    throws IOException {
+        throws IOException {
         appendBytes(file(dest), data, off, len);
     }
 
@@ -224,7 +224,7 @@ public class FileUtils {
     }
 
     public static void appendBytes(final File dest, final byte[] data, final int off, final int len)
-                    throws IOException {
+        throws IOException {
         outBytes(dest, data, off, len, true);
     }
 
@@ -235,7 +235,7 @@ public class FileUtils {
     }
 
     protected static void outBytes(final File dest, final byte[] data, final int off, final int len,
-                    final boolean append) throws IOException {
+        final boolean append) throws IOException {
         if (dest.exists()) {
             checkIsFile(dest);
         }
@@ -304,7 +304,7 @@ public class FileUtils {
     }
 
     public static File createTempFile(final String prefix, final String suffix, final File tempDir,
-                    final boolean create) throws IOException {
+        final boolean create) throws IOException {
         File file = createTempFile(prefix, suffix, tempDir);
         file.delete();
         if (create) {

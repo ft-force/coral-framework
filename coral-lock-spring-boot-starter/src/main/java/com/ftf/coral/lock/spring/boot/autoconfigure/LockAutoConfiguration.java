@@ -16,9 +16,9 @@ import com.ftf.coral.lock.spring.boot.autoconfigure.properties.LockProperties;
 import com.ftf.coral.spring.boot.autoconfigure.CoralAutoConfiguration;
 
 @Configuration
-@EnableConfigurationProperties({ LockProperties.class })
+@EnableConfigurationProperties({LockProperties.class})
 @ConditionalOnProperty(prefix = "coral.lock", name = "enabled", havingValue = "true")
-@AutoConfigureAfter({ CoralAutoConfiguration.class, RedisAutoConfiguration.class })
+@AutoConfigureAfter({CoralAutoConfiguration.class, RedisAutoConfiguration.class})
 public class LockAutoConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LockAutoConfiguration.class);

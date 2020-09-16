@@ -11,7 +11,7 @@ public final class SignerUtils {
 
     private static final DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyyMMdd").withZoneUTC();
     private static final DateTimeFormatter timeFormatter = DateTimeFormat.forPattern("EEE, dd MMM yyyy HH:mm:ss z")
-                    .withLocale(Locale.US).withZone(DateTimeZone.forID("GMT"));
+        .withLocale(Locale.US).withZone(DateTimeZone.forID("GMT"));
 
     public static String formatDateStamp(long timeMilli) {
         return dateFormatter.print(timeMilli);
@@ -24,7 +24,7 @@ public final class SignerUtils {
     public static long parseMillis(String signDate) {
         return timeFormatter.parseMillis(signDate);
     }
-    
+
     public static void main(String[] args) {
         System.out.println(SignerUtils.formatTimestamp(new Date().getTime()));
     }

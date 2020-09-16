@@ -7,7 +7,7 @@ public class EventBus {
     ConcurrentHashMap<String, EventRegion> eventRegionsMap = new ConcurrentHashMap<>();
 
     public synchronized void addEventListener(String[] eventRegions, Class eventClass, Object[] eventTypes,
-                    EventListener listener) {
+        EventListener listener) {
         if (eventRegions == null || eventRegions.length == 0) {
             addEventListener("DefaultEventRegion", eventClass, eventTypes, listener);
         } else {
@@ -37,7 +37,7 @@ public class EventBus {
     }
 
     public synchronized void replaceEventListener(String[] eventRegions, Class eventClass, Object[] eventTypes,
-                    EventListener oldListener, EventListener newListener) {
+        EventListener oldListener, EventListener newListener) {
         if (eventRegions == null || eventRegions.length == 0) {
             replaceEventListener("DefaultEventRegion", eventClass, eventTypes, oldListener, newListener);
         } else {
@@ -70,7 +70,7 @@ public class EventBus {
     }
 
     public synchronized void removeEventListener(String[] eventRegions, Class eventClass, Object[] eventTypes,
-                    EventListener listener) {
+        EventListener listener) {
         if (eventRegions == null || eventRegions.length == 0) {
             removeEventListener("DefaultEventRegion", eventClass, eventTypes, listener);
         } else {
@@ -91,7 +91,7 @@ public class EventBus {
     }
 
     private void removeEventListener(String eventRegion, Class eventClass, Object[] eventTypes,
-                    EventListener listener) {
+        EventListener listener) {
         EventRegion er = eventRegionsMap.get(eventRegion);
         if (er == null) {
             return;
@@ -100,7 +100,7 @@ public class EventBus {
     }
 
     private void replaceEventListener(String eventRegion, Class eventClass, Object[] eventTypes,
-                    EventListener oldListener, EventListener newListener) {
+        EventListener oldListener, EventListener newListener) {
         EventRegion er = eventRegionsMap.get(eventRegion);
         if (er == null) {
             return;

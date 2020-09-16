@@ -15,7 +15,7 @@ public class HttpUtils {
         StringBuilder pattern = new StringBuilder();
 
         pattern.append(Pattern.quote("+")).append("|").append(Pattern.quote("*")).append("|")
-                        .append(Pattern.quote("%7E")).append("|").append(Pattern.quote("%2F"));
+            .append(Pattern.quote("%7E")).append("|").append(Pattern.quote("%2F"));
 
         ENCODED_CHARACTERS_PATTERN = Pattern.compile(pattern.toString());
     }

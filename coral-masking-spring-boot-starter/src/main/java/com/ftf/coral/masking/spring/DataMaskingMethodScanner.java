@@ -46,7 +46,7 @@ public class DataMaskingMethodScanner extends AbstractAutoProxyCreator {
                     Object function = Class.forName(functionClass).newInstance();
 
                     if (function instanceof Function) {
-                        DataMaskingInterceptor.addRuleFunction(name, (Function<Object, Object>) function);
+                        DataMaskingInterceptor.addRuleFunction(name, (Function<Object, Object>)function);
                     } else {
                         LOGGER.warn("{}:{} （脱敏函数注册失败，不能识别的函数类型。）", name, functionClass);
                     }
@@ -72,7 +72,7 @@ public class DataMaskingMethodScanner extends AbstractAutoProxyCreator {
                 Class<?> serviceInterface = SpringProxyUtils.findTargetClass(bean);
                 Class<?>[] interfacesIfJdk = SpringProxyUtils.findInterfaces(bean);
 
-                if (!existsAnnotation(new Class[] { serviceInterface }) && !existsAnnotation(interfacesIfJdk)) {
+                if (!existsAnnotation(new Class[] {serviceInterface}) && !existsAnnotation(interfacesIfJdk)) {
                     return bean;
                 }
 
@@ -117,8 +117,8 @@ public class DataMaskingMethodScanner extends AbstractAutoProxyCreator {
 
     @Override
     protected Object[] getAdvicesAndAdvisorsForBean(Class<?> beanClass, String beanName,
-                    TargetSource customTargetSource) throws BeansException {
-        return new Object[] { interceptor };
+        TargetSource customTargetSource) throws BeansException {
+        return new Object[] {interceptor};
     }
 
     @Override

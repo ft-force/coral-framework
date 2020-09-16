@@ -12,7 +12,8 @@ public class EventRegion {
 
     String eventRegion;
 
-    ConcurrentHashMap<Object, ConcurrentHashMap<Object, EventListener[]>> customEventListeners = new ConcurrentHashMap<>();
+    ConcurrentHashMap<Object, ConcurrentHashMap<Object, EventListener[]>> customEventListeners =
+        new ConcurrentHashMap<>();
     ConcurrentHashMap<Object, EventListener[]> defaultEventListeners = new ConcurrentHashMap<>();
 
     public EventRegion(String er) {
@@ -44,11 +45,11 @@ public class EventRegion {
     }
 
     private void addEventListener(Object key, ConcurrentHashMap<Object, EventListener[]> eventListenersMap,
-                    EventListener listener) {
+        EventListener listener) {
 
         EventListener[] listenersArray = eventListenersMap.get(key);
         if (listenersArray == null) {
-            listenersArray = new EventListener[] { listener };
+            listenersArray = new EventListener[] {listener};
             eventListenersMap.put(key, listenersArray);
         } else {
             for (EventListener l : listenersArray) {
@@ -65,7 +66,7 @@ public class EventRegion {
     }
 
     private void removeEventListener(Object key, ConcurrentHashMap<Object, EventListener[]> eventListenersMap,
-                    EventListener listener) {
+        EventListener listener) {
         EventListener[] listenersArray = eventListenersMap.get(key);
         if (listenersArray == null) {
             return;
@@ -83,7 +84,7 @@ public class EventRegion {
     }
 
     private void replaceEventListener(Object key, ConcurrentHashMap<Object, EventListener[]> eventListenersMap,
-                    EventListener oldListener, EventListener newListener) {
+        EventListener oldListener, EventListener newListener) {
         EventListener[] listenersArray = eventListenersMap.get(key);
         if (listenersArray == null) {
 
@@ -123,7 +124,7 @@ public class EventRegion {
     }
 
     public void replaceEventListener(Class eventClass, Object[] eventTypes, EventListener oldListener,
-                    EventListener newListener) {
+        EventListener newListener) {
         synchronized (eventClass) {
             if (eventTypes == null || eventTypes.length == 0) {
                 replaceEventListener(eventClass, defaultEventListeners, oldListener, newListener);

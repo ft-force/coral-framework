@@ -8,12 +8,12 @@ import java.lang.annotation.Target;
 import com.ftf.coral.masking.enums.MaskingDataType;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 public @interface DataMasking {
 
-	String dataPath() default "$";
+    String dataPath() default "$";
 
-	MaskingDataType dataType() default MaskingDataType.object;
+    MaskingDataType dataType() default MaskingDataType.object;
 
-	String[] maskingRule(); // "a.b.c#rule1,a.b.d#rule2"
+    String[] maskingRule(); // "a.b.c#rule1,a.b.d#rule2"
 }

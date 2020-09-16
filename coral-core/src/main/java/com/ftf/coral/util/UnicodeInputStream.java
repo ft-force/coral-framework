@@ -5,8 +5,7 @@ import java.io.InputStream;
 import java.io.PushbackInputStream;
 
 /**
- * Unicode input stream for detecting UTF encodings and reading BOM characters.
- * Detects following BOMs:
+ * Unicode input stream for detecting UTF encodings and reading BOM characters. Detects following BOMs:
  * <ul>
  * <li>UTF-8</li>
  * <li>UTF-16BE</li>
@@ -26,16 +25,13 @@ public class UnicodeInputStream extends InputStream {
     private final String targetEncoding;
 
     /**
-     * Creates new unicode stream. It works in two modes: detect mode and read
-     * mode.
+     * Creates new unicode stream. It works in two modes: detect mode and read mode.
      * <p>
-     * Detect mode is active when target encoding is not specified. In detect
-     * mode, it tries to detect encoding from BOM if exist. If BOM doesn't
-     * exist, encoding is not detected.
+     * Detect mode is active when target encoding is not specified. In detect mode, it tries to detect encoding from BOM
+     * if exist. If BOM doesn't exist, encoding is not detected.
      * <p>
-     * Read mode is active when target encoding is set. Then this stream reads
-     * optional BOM for given encoding. If BOM doesn't exist, nothing is
-     * skipped.
+     * Read mode is active when target encoding is set. Then this stream reads optional BOM for given encoding. If BOM
+     * doesn't exist, nothing is skipped.
      */
     public UnicodeInputStream(final InputStream in, final String targetEncoding) {
         internalInputStream = new PushbackInputStream(in, MAX_BOM_SIZE);
@@ -43,9 +39,8 @@ public class UnicodeInputStream extends InputStream {
     }
 
     /**
-     * Returns detected UTF encoding or {@code null} if no UTF encoding has been
-     * detected (i.e. no BOM). If stream is not read yet, it will be
-     * {@link #init() initalized} first.
+     * Returns detected UTF encoding or {@code null} if no UTF encoding has been detected (i.e. no BOM). If stream is
+     * not read yet, it will be {@link #init() initalized} first.
      */
     public String getDetectedEncoding() {
         if (!initialized) {
@@ -58,16 +53,15 @@ public class UnicodeInputStream extends InputStream {
         return encoding;
     }
 
-    public static final byte[] BOM_UTF32_BE = new byte[] { (byte) 0x00, (byte) 0x00, (byte) 0xFE, (byte) 0xFF };
-    public static final byte[] BOM_UTF32_LE = new byte[] { (byte) 0xFF, (byte) 0xFE, (byte) 0x00, (byte) 0x00 };
-    public static final byte[] BOM_UTF8 = new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF };
-    public static final byte[] BOM_UTF16_BE = new byte[] { (byte) 0xFE, (byte) 0xFF };
-    public static final byte[] BOM_UTF16_LE = new byte[] { (byte) 0xFF, (byte) 0xFE };
+    public static final byte[] BOM_UTF32_BE = new byte[] {(byte)0x00, (byte)0x00, (byte)0xFE, (byte)0xFF};
+    public static final byte[] BOM_UTF32_LE = new byte[] {(byte)0xFF, (byte)0xFE, (byte)0x00, (byte)0x00};
+    public static final byte[] BOM_UTF8 = new byte[] {(byte)0xEF, (byte)0xBB, (byte)0xBF};
+    public static final byte[] BOM_UTF16_BE = new byte[] {(byte)0xFE, (byte)0xFF};
+    public static final byte[] BOM_UTF16_LE = new byte[] {(byte)0xFF, (byte)0xFE};
 
     /**
-     * Detects and decodes encoding from BOM character. Reads ahead four bytes
-     * and check for BOM marks. Extra bytes are unread back to the stream, so
-     * only BOM bytes are skipped.
+     * Detects and decodes encoding from BOM character. Reads ahead four bytes and check for BOM marks. Extra bytes are
+     * unread back to the stream, so only BOM bytes are skipped.
      */
     protected void init() throws IOException {
         if (initialized) {
@@ -83,11 +77,11 @@ public class UnicodeInputStream extends InputStream {
             int unread;
 
             if ((bom[0] == BOM_UTF32_BE[0]) && (bom[1] == BOM_UTF32_BE[1]) && (bom[2] == BOM_UTF32_BE[2])
-                            && (bom[3] == BOM_UTF32_BE[3])) {
+                && (bom[3] == BOM_UTF32_BE[3])) {
                 encoding = "UTF-32BE";
                 unread = n - 4;
             } else if ((bom[0] == BOM_UTF32_LE[0]) && (bom[1] == BOM_UTF32_LE[1]) && (bom[2] == BOM_UTF32_LE[2])
-                            && (bom[3] == BOM_UTF32_LE[3])) {
+                && (bom[3] == BOM_UTF32_LE[3])) {
                 encoding = "UTF-32LE";
                 unread = n - 4;
             } else if ((bom[0] == BOM_UTF8[0]) && (bom[1] == BOM_UTF8[1]) && (bom[2] == BOM_UTF8[2])) {
@@ -151,8 +145,7 @@ public class UnicodeInputStream extends InputStream {
     }
 
     /**
-     * Closes input stream. If stream was not used, encoding will be
-     * unavailable.
+     * Closes input stream. If stream was not used, encoding will be unavailable.
      */
     @Override
     public void close() throws IOException {

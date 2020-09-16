@@ -33,7 +33,7 @@ public class AuditLogManager {
     /**
      * 异步处理审计数据 可添加自定义处理器
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void dealAuditLog(AuditLog auditLog) {
 
         AuditLogHandler handler = getAuditLogHandler(auditLog.getClass());

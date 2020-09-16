@@ -20,7 +20,7 @@ public class IDCardMaskingHandlerFunction implements Function<Object, Object> {
 
         if (rawData instanceof String) {
 
-            String rawDataStr = (String) rawData;
+            String rawDataStr = (String)rawData;
             rawDataStr = rawDataStr.trim();
 
             int len = rawDataStr.length();

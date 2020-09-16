@@ -78,9 +78,9 @@ public class Base64 {
         for (int cc = 0, eLen = (len / 3) * 3; d < eLen;) {
             int i = INV[arr[sndx++]] << 18 | INV[arr[sndx++]] << 12 | INV[arr[sndx++]] << 6 | INV[arr[sndx++]];
 
-            dest[d++] = (byte) (i >> 16);
-            dest[d++] = (byte) (i >> 8);
-            dest[d++] = (byte) i;
+            dest[d++] = (byte)(i >> 16);
+            dest[d++] = (byte)(i >> 8);
+            dest[d++] = (byte)i;
 
             if (sepCnt > 0 && ++cc == 19) {
                 sndx += 2;
@@ -94,7 +94,7 @@ public class Base64 {
                 i |= INV[arr[sndx++]] << (18 - j * 6);
             }
             for (int r = 16; d < len; r -= 8) {
-                dest[d++] = (byte) (i >> r);
+                dest[d++] = (byte)(i >> r);
             }
         }
 
@@ -132,10 +132,10 @@ public class Base64 {
         for (int s = 0, d = 0, cc = 0; s < evenlen;) {
             int i = (arr[s++] & 0xff) << 16 | (arr[s++] & 0xff) << 8 | (arr[s++] & 0xff);
 
-            dest[d++] = (byte) CHARS[(i >>> 18) & 0x3f];
-            dest[d++] = (byte) CHARS[(i >>> 12) & 0x3f];
-            dest[d++] = (byte) CHARS[(i >>> 6) & 0x3f];
-            dest[d++] = (byte) CHARS[i & 0x3f];
+            dest[d++] = (byte)CHARS[(i >>> 18) & 0x3f];
+            dest[d++] = (byte)CHARS[(i >>> 12) & 0x3f];
+            dest[d++] = (byte)CHARS[(i >>> 6) & 0x3f];
+            dest[d++] = (byte)CHARS[i & 0x3f];
 
             if (lineSep && ++cc == 19 && d < destlen - 2) {
                 dest[d++] = '\r';
@@ -148,9 +148,9 @@ public class Base64 {
         if (left > 0) {
             int i = ((arr[evenlen] & 0xff) << 10) | (left == 2 ? ((arr[len - 1] & 0xff) << 2) : 0);
 
-            dest[destlen - 4] = (byte) CHARS[i >> 12];
-            dest[destlen - 3] = (byte) CHARS[(i >>> 6) & 0x3f];
-            dest[destlen - 2] = left == 2 ? (byte) CHARS[i & 0x3f] : (byte) '=';
+            dest[destlen - 4] = (byte)CHARS[i >> 12];
+            dest[destlen - 3] = (byte)CHARS[(i >>> 6) & 0x3f];
+            dest[destlen - 2] = left == 2 ? (byte)CHARS[i & 0x3f] : (byte)'=';
             dest[destlen - 1] = '=';
         }
         return dest;
@@ -180,9 +180,9 @@ public class Base64 {
         for (int cc = 0, eLen = (len / 3) * 3; d < eLen;) {
             int i = INV[arr[sndx++]] << 18 | INV[arr[sndx++]] << 12 | INV[arr[sndx++]] << 6 | INV[arr[sndx++]];
 
-            dest[d++] = (byte) (i >> 16);
-            dest[d++] = (byte) (i >> 8);
-            dest[d++] = (byte) i;
+            dest[d++] = (byte)(i >> 16);
+            dest[d++] = (byte)(i >> 8);
+            dest[d++] = (byte)i;
 
             if (sepCnt > 0 && ++cc == 19) {
                 sndx += 2;
@@ -196,7 +196,7 @@ public class Base64 {
                 i |= INV[arr[sndx++]] << (18 - j * 6);
             }
             for (int r = 16; d < len; r -= 8) {
-                dest[d++] = (byte) (i >> r);
+                dest[d++] = (byte)(i >> r);
             }
         }
 
@@ -247,11 +247,11 @@ public class Base64 {
         int d = 0;
         for (int cc = 0, eLen = (len / 3) * 3; d < eLen;) {
             int i = INV[s.charAt(sndx++)] << 18 | INV[s.charAt(sndx++)] << 12 | INV[s.charAt(sndx++)] << 6
-                            | INV[s.charAt(sndx++)];
+                | INV[s.charAt(sndx++)];
 
-            dest[d++] = (byte) (i >> 16);
-            dest[d++] = (byte) (i >> 8);
-            dest[d++] = (byte) i;
+            dest[d++] = (byte)(i >> 16);
+            dest[d++] = (byte)(i >> 8);
+            dest[d++] = (byte)i;
 
             if (sepCnt > 0 && ++cc == 19) {
                 sndx += 2;
@@ -265,7 +265,7 @@ public class Base64 {
                 i |= INV[s.charAt(sndx++)] << (18 - j * 6);
             }
             for (int r = 16; d < len; r -= 8) {
-                dest[d++] = (byte) (i >> r);
+                dest[d++] = (byte)(i >> r);
             }
         }
 

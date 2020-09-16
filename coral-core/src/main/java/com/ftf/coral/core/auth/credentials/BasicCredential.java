@@ -52,7 +52,7 @@ public class BasicCredential implements Credential {
             return false;
         }
 
-        BasicCredential other = (BasicCredential) obj;
+        BasicCredential other = (BasicCredential)obj;
 
         if (!StringUtils.equals(appId, other.getAppId())) {
             return false;

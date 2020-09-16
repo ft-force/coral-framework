@@ -72,12 +72,12 @@ public class JSONUtils {
     }
 
     private static Object readValue(Type type, JsonNode jsonNode)
-                    throws JsonParseException, JsonMappingException, IOException {
+        throws JsonParseException, JsonMappingException, IOException {
 
         Object value = null;
 
         if (type instanceof ParameterizedType) {
-            ParameterizedType t = (ParameterizedType) type;
+            ParameterizedType t = (ParameterizedType)type;
             if (t.getRawType().getTypeName().equalsIgnoreCase(List.class.getName())) {
                 value = mapper.readValue(jsonNode.traverse(), new TypeReference<List>() {
                     @Override
@@ -129,7 +129,7 @@ public class JSONUtils {
         try {
             ArrayList<T> arrayList = new ArrayList<>();
 
-            ArrayNode node = (ArrayNode) mapper.readTree(json);
+            ArrayNode node = (ArrayNode)mapper.readTree(json);
             if (node == null || node.size() == 0) {
                 return arrayList;
             } else {

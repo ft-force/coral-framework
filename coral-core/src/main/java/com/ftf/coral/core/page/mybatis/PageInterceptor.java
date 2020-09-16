@@ -32,8 +32,7 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import com.ftf.coral.core.page.PageRequest;
 import com.ftf.coral.util.ReflectHelper;
 
-@Intercepts({ @Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class,
-                Integer.class }) })
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 public class PageInterceptor implements Interceptor {
 
     private String dialect; // 数据库方言
@@ -44,23 +43,23 @@ public class PageInterceptor implements Interceptor {
     public Object intercept(Invocation invocation) throws Throwable {
         if (invocation.getTarget() instanceof RoutingStatementHandler) {
 
-            StatementHandler statementHandler = (RoutingStatementHandler) invocation.getTarget();
-            BaseStatementHandler delegate = (BaseStatementHandler) ReflectHelper.getValueByFieldName(statementHandler,
-                            "delegate");
-            MappedStatement mappedStatement = (MappedStatement) ReflectHelper.getValueByFieldName(delegate,
-                            "mappedStatement");
+            StatementHandler statementHandler = (RoutingStatementHandler)invocation.getTarget();
+            BaseStatementHandler delegate =
+                (BaseStatementHandler)ReflectHelper.getValueByFieldName(statementHandler, "delegate");
+            MappedStatement mappedStatement =
+                (MappedStatement)ReflectHelper.getValueByFieldName(delegate, "mappedStatement");
             if (mappedStatement.getId().matches(pageSqlId)) {
                 BoundSql boundSql = delegate.getBoundSql();
                 Object parameterObject = boundSql.getParameterObject();
                 if (parameterObject == null) {
                     throw new NullPointerException("parameterObject error");
                 } else {
-                    Connection connection = (Connection) invocation.getArgs()[0];
+                    Connection connection = (Connection)invocation.getArgs()[0];
                     String sql = boundSql.getSql();
                     String countSql = "select count(0) from (" + sql + ") myCount";
                     PreparedStatement countStmt = connection.prepareStatement(countSql);
                     BoundSql countBS = new BoundSql(mappedStatement.getConfiguration(), countSql,
-                                    boundSql.getParameterMappings(), parameterObject);
+                        boundSql.getParameterMappings(), parameterObject);
                     this.setParameters(countStmt, mappedStatement, countBS, parameterObject);
                     ResultSet rs = countStmt.executeQuery();
                     int count = 0;
@@ -72,12 +71,12 @@ public class PageInterceptor implements Interceptor {
 
                     PageRequest page = null;
                     if (parameterObject instanceof PageRequest) {
-                        page = (PageRequest) parameterObject;
+                        page = (PageRequest)parameterObject;
                     } else if (parameterObject instanceof Map) {
-                        Map<String, Object> map = (Map<String, Object>) parameterObject;
-                        page = (PageRequest) map.get("page");
+                        Map<String, Object> map = (Map<String, Object>)parameterObject;
+                        page = (PageRequest)map.get("page");
                     } else {
-                        page = (PageRequest) ReflectHelper.getValueByFieldName(parameterObject, "page");
+                        page = (PageRequest)ReflectHelper.getValueByFieldName(parameterObject, "page");
                     }
 
                     ReflectHelper.setValueByFieldName(page, "totalItems", count);
@@ -91,9 +90,9 @@ public class PageInterceptor implements Interceptor {
         return invocation.proceed();
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void setParameters(PreparedStatement ps, MappedStatement mappedStatement, BoundSql boundSql,
-                    Object parameterObject) throws SQLException {
+        Object parameterObject) throws SQLException {
         ErrorContext.instance().activity("setting parameters").object(mappedStatement.getParameterMap().getId());
         List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         if (parameterMappings != null) {
@@ -113,11 +112,11 @@ public class PageInterceptor implements Interceptor {
                     } else if (boundSql.hasAdditionalParameter(propertyName)) {
                         value = boundSql.getAdditionalParameter(propertyName);
                     } else if (propertyName.startsWith(ForEachSqlNode.ITEM_PREFIX)
-                                    && boundSql.hasAdditionalParameter(prop.getName())) {
+                        && boundSql.hasAdditionalParameter(prop.getName())) {
                         value = boundSql.getAdditionalParameter(prop.getName());
                         if (value != null) {
                             value = configuration.newMetaObject(value)
-                                            .getValue(propertyName.substring(prop.getName().length()));
+                                .getValue(propertyName.substring(prop.getName().length()));
                         }
                     } else {
                         value = metaObject == null ? null : metaObject.getValue(propertyName);
@@ -125,7 +124,7 @@ public class PageInterceptor implements Interceptor {
                     TypeHandler typeHandler = parameterMapping.getTypeHandler();
                     if (typeHandler == null) {
                         throw new ExecutorException("There was no TypeHandler found for parameter " + propertyName
-                                        + " of statement " + mappedStatement.getId());
+                            + " of statement " + mappedStatement.getId());
                     }
                     typeHandler.setParameter(ps, i + 1, value, parameterMapping.getJdbcType());
                 }

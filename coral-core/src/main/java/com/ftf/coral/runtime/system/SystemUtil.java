@@ -14,8 +14,7 @@ public class SystemUtil {
     }
 
     /**
-     * Returns system property. If key is not available, returns the default
-     * value.
+     * Returns system property. If key is not available, returns the default value.
      */
     public static String get(final String name, final String defaultValue) {
         Objects.requireNonNull(name);
@@ -25,9 +24,10 @@ public class SystemUtil {
             if (System.getSecurityManager() == null) {
                 value = System.getProperty(name);
             } else {
-                value = AccessController.doPrivileged((PrivilegedAction<String>) () -> System.getProperty(name));
+                value = AccessController.doPrivileged((PrivilegedAction<String>)() -> System.getProperty(name));
             }
-        } catch (final Exception ignore) {}
+        } catch (final Exception ignore) {
+        }
 
         if (value == null) {
             return defaultValue;

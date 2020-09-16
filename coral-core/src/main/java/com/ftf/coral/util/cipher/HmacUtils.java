@@ -39,7 +39,7 @@ public class HmacUtils {
             throw new CipherException(e);
         }
     }
-    
+
     public static void main(String[] args) {
         System.out.println(HmacUtils.generateKey(HmacType.HmacSHA384));
     }

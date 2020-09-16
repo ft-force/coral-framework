@@ -55,9 +55,8 @@ public class CharUtils {
     }
 
     /**
-     * Returns <code>true</code> if character is a white space ({@code <= ' '}).
-     * White space definition is taken from String class (see:
-     * <code>trim()</code>). This method has different results then
+     * Returns <code>true</code> if character is a white space ({@code <= ' '}). White space definition is taken from
+     * String class (see: <code>trim()</code>). This method has different results then
      * <code>Character#isWhitespace</code>."
      */
     public static boolean isWhitespace(final char c) {
@@ -68,6 +67,6 @@ public class CharUtils {
         return HEX_CHARS[i];
     }
 
-    public static final char[] HEX_CHARS = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
-                    'D', 'E', 'F' };
+    public static final char[] HEX_CHARS =
+        new char[] {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 }

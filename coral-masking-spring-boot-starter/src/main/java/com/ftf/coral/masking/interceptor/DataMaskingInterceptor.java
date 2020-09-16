@@ -22,7 +22,8 @@ public class DataMaskingInterceptor implements MethodInterceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(DataMaskingInterceptor.class);
 
-    private static final ConcurrentHashMap<String, Function<Object, Object>> maskingRuleFunction = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Function<Object, Object>> maskingRuleFunction =
+        new ConcurrentHashMap<>();
 
     static {
         addRuleFunction("IDCard", new IDCardMaskingHandlerFunction());
@@ -56,7 +57,7 @@ public class DataMaskingInterceptor implements MethodInterceptor {
                     Object maskBean = new Object();
 
                     if (isJSON) {
-                        String beanStr = (String) bean;
+                        String beanStr = (String)bean;
                         maskBean = JSONUtils.formJSON(beanStr, Object.class);
                     } else {
                         maskBean = bean;
@@ -94,7 +95,7 @@ public class DataMaskingInterceptor implements MethodInterceptor {
         if (temp != null) {
             if (logger.isWarnEnabled()) {
                 logger.warn("函数({})已经注册，请勿再次注册，当前值为:{}，尝试注册值为:{}", name, temp.getClass().getTypeName(),
-                                function.getClass().getName());
+                    function.getClass().getName());
             }
         }
     }

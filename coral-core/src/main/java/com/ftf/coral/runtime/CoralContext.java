@@ -20,6 +20,6 @@ public class CoralContext {
 
     @SuppressWarnings("unchecked")
     public static <T> T getAPI(Class<T> type) {
-        return (T) apiMap.get(type);
+        return (T)apiMap.get(type);
     }
 }

@@ -10,9 +10,8 @@ import java.net.UnknownHostException;
 abstract class HostInfo {
 
     /**
-     * Delegate host info to be resolved lazy. Android detection will initialize
-     * this class too and since {@code InetAddress.getLocalHost()} is forbidden
-     * in Android, we will get an exception.
+     * Delegate host info to be resolved lazy. Android detection will initialize this class too and since
+     * {@code InetAddress.getLocalHost()} is forbidden in Android, we will get an exception.
      */
     private static class HostInfoLazy {
         private final String HOST_NAME;
