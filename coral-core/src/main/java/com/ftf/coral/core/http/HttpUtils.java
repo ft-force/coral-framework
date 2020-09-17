@@ -1,4 +1,4 @@
-package com.ftf.coral.util;
+package com.ftf.coral.core.http;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

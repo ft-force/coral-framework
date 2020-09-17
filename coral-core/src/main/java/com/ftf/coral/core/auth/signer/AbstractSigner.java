@@ -11,8 +11,8 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.ftf.coral.core.exception.AuthException;
+import com.ftf.coral.core.http.HttpUtils;
 import com.ftf.coral.core.http.Request;
-import com.ftf.coral.util.HttpUtils;
 
 public abstract class AbstractSigner implements Signer {
 
