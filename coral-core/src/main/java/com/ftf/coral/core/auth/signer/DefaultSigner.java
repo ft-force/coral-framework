@@ -74,10 +74,9 @@ public class DefaultSigner extends AbstractSigner {
         for (String header : authorizationData.getHeaderItems()) {
             if (SignerConstants.X_DATE.equalsIgnoreCase(header)) {
                 // 获取日期(HTTP规范头部为小写)
-                String singerDate = request.getHeaders().get(SignerConstants.X_DATE.toLowerCase());
+                String signerDate = request.getHeaders().get(SignerConstants.X_DATE.toLowerCase());
 
             } else if (SignerConstants.DIGEST.equalsIgnoreCase(header)) {
-                // 获取日期(HTTP规范头部为小写)
                 String digest = request.getHeaders().get(SignerConstants.DIGEST.toLowerCase());
             }
         }
