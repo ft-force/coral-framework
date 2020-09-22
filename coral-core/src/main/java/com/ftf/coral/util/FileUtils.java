@@ -273,12 +273,20 @@ public class FileUtils {
         return dir;
     }
 
+    public static InputStream streamOf(final String file) throws IOException {
+        return new FileInputStream(file);
+    }
+
     public static InputStream streamOf(final String file, final String encoding) throws IOException {
         InputStream in = new FileInputStream(file);
         if (encoding.startsWith("UTF")) {
             in = unicodeInputStreamOf(in, encoding);
         }
         return in;
+    }
+
+    public static InputStream streamOf(final File file) throws IOException {
+        return new FileInputStream(file);
     }
 
     public static InputStream streamOf(final File file, final String encoding) throws IOException {

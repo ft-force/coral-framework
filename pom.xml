@@ -9,7 +9,7 @@
 
     <groupId>com.github.ft-force</groupId>
     <artifactId>coral-parent</artifactId>
-    <version>0.1.6</version>
+    <version>0.1.7</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -60,7 +60,7 @@
         <okhttp.version>4.7.2</okhttp.version>
         <itext7.version>7.1.11</itext7.version>
 
-        <coral.version>0.1.6</coral.version>
+        <coral.version>0.1.7</coral.version>
     </properties>
 
     <dependencies>

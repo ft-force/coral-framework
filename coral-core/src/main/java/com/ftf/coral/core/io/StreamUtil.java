@@ -47,6 +47,11 @@ public class StreamUtil {
     }
 
     public static byte[] readAvailableBytes(final InputStream input) throws IOException {
+
+        if (input == null) {
+            return null;
+        }
+
         int numToRead = input.available();
         byte[] buffer = new byte[numToRead];
 
