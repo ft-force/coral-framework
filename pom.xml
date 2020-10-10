@@ -45,6 +45,7 @@
         <module>coral-validation-spring-boot-starter</module>
         <module>coral-auth-spring-boot-starter</module>
         <module>coral-generator</module>
+        <module>coral-admin-spring-boot-starter</module>
     </modules>
 
     <properties>
@@ -143,6 +144,11 @@
             <dependency>
                 <groupId>com.github.ft-force</groupId>
                 <artifactId>coral-generator</artifactId>
+                <version>${coral.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.ft-force</groupId>
+                <artifactId>coral-admin-spring-boot-starter</artifactId>
                 <version>${coral.version}</version>
             </dependency>
             <!-- mybatis -->

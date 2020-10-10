@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package ftf.coral.admin.protobuf;
+option java_package="com.ftf.coral.admin.protobuf";
+option java_multiple_files = true;
+
+import "wrappers.proto";
+
+message ScSessionInfo {
+  google.protobuf.Int64Value beginTime = 1; // 开始时间
+  string deviceInfo = 2; // 设备信息
+}
+
+message ScAccountInfo {
+  google.protobuf.Int32Value category = 1;
+  google.protobuf.Int64Value accountId = 2;
+  string username = 3;
+  repeated string roles = 4;
+  google.protobuf.Int64Value loginTime = 5; // 登录时间
+}
+
+message ScTokenSessionInfo {
+  ScSessionInfo scSessionInfo = 1;
+  ScAccountInfo scAccountInfo = 2; 
+}
