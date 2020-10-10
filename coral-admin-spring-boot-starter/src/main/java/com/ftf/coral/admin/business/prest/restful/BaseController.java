@@ -12,6 +12,7 @@ import com.ftf.coral.admin.business.infra.mapper.ScApplicationAdminMapper;
 import com.ftf.coral.admin.core.ScAccountManager;
 import com.ftf.coral.admin.protobuf.ScAccountInfo;
 import com.ftf.coral.util.CollectionUtils;
+import com.ftf.coral.util.StringUtils;
 
 public class BaseController {
 
@@ -36,6 +37,10 @@ public class BaseController {
         List<String> applicationIds = this.queryApplicationIdsByAccountId(scAccountInfo.getAccountId().getValue());
 
         if (CollectionUtils.isNotEmpty(applicationIds)) {
+
+            if (StringUtils.isBlank(applicationId)) {
+                return false;
+            }
 
             if (applicationIds.contains(applicationId)) {
                 return true;
