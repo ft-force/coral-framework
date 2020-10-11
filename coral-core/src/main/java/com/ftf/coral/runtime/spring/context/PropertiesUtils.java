@@ -18,15 +18,23 @@ public class PropertiesUtils implements EmbeddedValueResolverAware {
         valueResolver = stringValueResolver;
     }
 
-    public static String getPropertiesValue(String key) {
+    public static String getPropertiesValue(String key, boolean required) {
 
         StringBuilder name = new StringBuilder("${").append(key).append("}");
 
         try {
             return valueResolver.resolveStringValue(name.toString());
         } catch (Throwable e) {
-            LOGGER.warn(e.getMessage());
+            if (required) {
+                LOGGER.warn(e.getMessage());
+                throw e;
+            }
             return null;
         }
+    }
+
+    public static String getPropertiesValue(String key) {
+
+        return getPropertiesValue(key, true);
     }
 }
