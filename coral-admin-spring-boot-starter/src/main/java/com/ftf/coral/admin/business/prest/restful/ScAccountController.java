@@ -3,6 +3,7 @@ package com.ftf.coral.admin.business.prest.restful;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.Spring;
@@ -130,11 +131,11 @@ public class ScAccountController extends BaseController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public ResponseDTO<Boolean> login(@Valid @RequestBody ScAccountDTO accountDTO, HttpServletRequest request,
-        HttpServletResponse response) {
+        HttpServletResponse response) throws NamingException {
 
-        // if (!ldapService.authenticate(accountDTO.getUserName(), accountDTO.getPassword())) {
-        // return new ResponseDTO<Boolean>().failure("该账号不存在或密码错误");
-        // }
+        if (!ldapService.authenticate(accountDTO.getUserName(), accountDTO.getPassword())) {
+            return new ResponseDTO<Boolean>().failure("该账号不存在或密码错误");
+        }
 
         ScAccount scAccount = scAccountMapper.selectScAccount(accountDTO.getUserName());
 

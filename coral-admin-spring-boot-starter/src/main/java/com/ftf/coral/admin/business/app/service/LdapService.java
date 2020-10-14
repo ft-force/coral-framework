@@ -1,75 +1,55 @@
 package com.ftf.coral.admin.business.app.service;
 
-import java.util.List;
+import java.util.Hashtable;
 
-import javax.naming.directory.Attributes;
-import javax.naming.directory.DirContext;
+import javax.naming.AuthenticationException;
+import javax.naming.Context;
+import javax.naming.NamingException;
+import javax.naming.ldap.InitialLdapContext;
+import javax.naming.ldap.LdapContext;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ldap.NamingException;
-import org.springframework.ldap.core.AttributesMapper;
-import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.filter.Filter;
-import org.springframework.ldap.support.LdapUtils;
 import org.springframework.stereotype.Service;
-
-import com.ftf.coral.core.ldap.User;
 
 @Service
 public class LdapService {
 
     private static final Logger LOGGERR = LoggerFactory.getLogger(LdapService.class);
 
-    @Autowired
-    private LdapTemplate ldapTemplate;
-
+    @Value("${ldap.url}")
+    protected String ldapUrl;
     @Value("${ldap.domainName}")
     private String ldapDomainName;
-    @Value("${ldap.base}")
-    private String ldapBaseDn;
 
-    public List<User> getPersonList(String ldapBase, Filter filter) { // 获取用户列表
-
-        return ldapTemplate.search(ldapBase, filter.encode(), new AttributesMapper<User>() {
-
-            @Override
-            public User mapFromAttributes(Attributes attr) throws NamingException, javax.naming.NamingException {
-                User person = new User();
-                String distingugihedName = (String)attr.get("distinguishedName").get();
-                person.setUsername((String)attr.get("username").get());
-                person.setEmail((String)attr.get("mail").get());
-                person.setRealname((String)attr.get("name").get());
-                if (null != attr.get("mobile")) {
-                    person.setMobile((String)attr.get("mobile").get());
-                }
-                if (null != attr.get("telephoneNumber")) {
-                    person.setPhone((String)attr.get("telephoneNumber").get());
-                }
-                person.setLdapflag(1);
-                String departmentName = StringUtils.substringAfter(distingugihedName.split(",")[1], "OU=");
-                person.setUnitname(departmentName);
-                return person;
-            }
-        });
-    }
-
-    public boolean authenticate(String username, String password) { // 身份认证
+    public boolean authenticate(String username, String password) throws NamingException { // 身份认证
 
         String userDomainName = String.format(ldapDomainName, username);
 
-        DirContext ctx = null;
-
+        LdapContext ctx = null;
+        Hashtable<String, String> HashEnv = new Hashtable<String, String>();
+        HashEnv.put(Context.SECURITY_AUTHENTICATION, "simple"); // LDAP访问安全级别(none,simple,strong)
+        HashEnv.put(Context.SECURITY_PRINCIPAL, userDomainName); // AD的用户名
+        HashEnv.put(Context.SECURITY_CREDENTIALS, password); // AD的密码
+        HashEnv.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory"); // LDAP工厂类
+        HashEnv.put("com.sun.jndi.ldap.connect.timeout", "3000");// 连接超时设置为3秒
+        HashEnv.put(Context.PROVIDER_URL, ldapUrl);// 默认端口389
         try {
-
-            ctx = ldapTemplate.getContextSource().getContext(userDomainName, password);
+            ctx = new InitialLdapContext(HashEnv, null);// new InitialDirContext(HashEnv);// 初始化上下文
             return true;
-
+        } catch (AuthenticationException e) {
+            LOGGERR.warn(e.getMessage());
+            return false;
         } finally {
-            LdapUtils.closeContext(ctx);
+            if (null != ctx) {
+                try {
+                    ctx.close();
+                    ctx = null;
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
         }
     }
 }
