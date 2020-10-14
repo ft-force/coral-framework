@@ -15,6 +15,7 @@ import com.ftf.coral.audit.AuditLogManager;
 import com.ftf.coral.audit.annotation.Audit;
 import com.ftf.coral.audit.model.HttpRequestAuditLog;
 import com.ftf.coral.audit.util.IPUtils;
+import com.ftf.coral.business.context.UserContext;
 import com.ftf.coral.util.StringUtils;
 import com.ftf.coral.util.SystemClock;
 
@@ -38,9 +39,11 @@ public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
         throws Exception {
 
         // 打印访问日志
-        LOGGER.info("[{}][{} {}?{} {}] {} {}ms", IPUtils.getRemoteIP(request), request.getMethod(),
-            request.getRequestURI(), request.getQueryString(), request.getProtocol(), response.getStatus(),
-            SystemClock.now() - startTimeHolder.get(), ex);
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("[{}][{}][{} {}?{} {}] {} {}ms", UserContext.getCurrentUser(), IPUtils.getRemoteIP(request),
+                request.getMethod(), request.getRequestURI(), request.getQueryString(), request.getProtocol(),
+                response.getStatus(), SystemClock.now() - startTimeHolder.get(), ex);
+        }
 
         if (handler instanceof HandlerMethod) {
 

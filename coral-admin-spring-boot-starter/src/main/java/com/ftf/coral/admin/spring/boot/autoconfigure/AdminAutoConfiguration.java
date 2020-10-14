@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.ftf.coral.admin.core.CoralAdminCore;
 import com.ftf.coral.admin.core.session.ScTokenSession;
 import com.ftf.coral.admin.spring.boot.autoconfigure.properties.AdminProperties;
 import com.ftf.coral.admin.spring.interceptor.HandlerScTokenInterceptor;
@@ -30,6 +31,7 @@ public class AdminAutoConfiguration extends WebMvcConfigurerAdapter {
     public AdminAutoConfiguration(AdminProperties properties) {
 
         this.properties = properties;
+        CoralAdminCore.setTokenPrefix(properties.getTokenPrefix());
         LOGGER.info("Admin模块已开启");
     }
 

@@ -28,12 +28,15 @@ import com.ftf.coral.admin.business.prest.dto.CreateScAccountRequest;
 import com.ftf.coral.admin.business.prest.dto.ScAccountDTO;
 import com.ftf.coral.admin.business.prest.dto.UpdateScAccountRequest;
 import com.ftf.coral.admin.business.prest.dto.UpdateScAccountRoleRequest;
+import com.ftf.coral.admin.core.CoralAdminCore;
 import com.ftf.coral.admin.core.ScAccountManager;
 import com.ftf.coral.admin.core.ScToken;
 import com.ftf.coral.admin.core.ScTokenManager;
 import com.ftf.coral.admin.core.annotation.ScAccountAuth;
 import com.ftf.coral.admin.core.entity.ScAccount;
 import com.ftf.coral.admin.core.session.ScTokenSession;
+import com.ftf.coral.admin.protobuf.ScTokenSessionInfo;
+import com.ftf.coral.business.context.UserContext;
 import com.ftf.coral.business.model.ResponseDTO;
 import com.ftf.coral.core.page.PageData;
 import com.ftf.coral.core.page.PageRequest;
@@ -145,11 +148,15 @@ public class ScAccountController extends BaseController {
                 String clientIp = IPUtil.getClientIp(request);
                 String accessToken = scToken.accessToken(clientIp);
 
-                scTokenSession.init(scToken, scAccount, roles);
+                ScTokenSessionInfo tokenSessionInfo = scTokenSession.init(scToken, scAccount, roles);
+                ScAccountManager.putCurrentTokenSessionInfo(tokenSessionInfo);
+                UserContext
+                    .setCurrentUser(ScAccountManager.getCurrentTokenSessionInfo().getScAccountInfo().getUsername());
 
                 // 写入 cookie
                 String topDomain = HttpRequestUtils.getTopDomain(request);
-                javax.servlet.http.Cookie d = new javax.servlet.http.Cookie("_sa_a", accessToken);
+                javax.servlet.http.Cookie d =
+                    new javax.servlet.http.Cookie(CoralAdminCore.getTokenKey("a"), accessToken);
                 d.setDomain(topDomain);
                 d.setHttpOnly(false);
                 d.setPath("/");
@@ -183,7 +190,7 @@ public class ScAccountController extends BaseController {
 
         // 写入 cookie
         String topDomain = HttpRequestUtils.getTopDomain(request);
-        javax.servlet.http.Cookie d = new javax.servlet.http.Cookie("_sa_a", null);
+        javax.servlet.http.Cookie d = new javax.servlet.http.Cookie(CoralAdminCore.getTokenKey("a"), null);
         d.setDomain(topDomain);
         d.setPath("/");
         d.setMaxAge(0);

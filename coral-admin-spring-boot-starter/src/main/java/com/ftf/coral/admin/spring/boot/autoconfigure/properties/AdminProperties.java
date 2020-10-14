@@ -11,6 +11,8 @@ public class AdminProperties {
 
     private String[] excludePathPatterns;
 
+    private String tokenPrefix;
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -33,5 +35,13 @@ public class AdminProperties {
 
     public void setExcludePathPatterns(String[] excludePathPatterns) {
         this.excludePathPatterns = excludePathPatterns;
+    }
+
+    public String getTokenPrefix() {
+        return tokenPrefix;
+    }
+
+    public void setTokenPrefix(String tokenPrefix) {
+        this.tokenPrefix = tokenPrefix;
     }
 }

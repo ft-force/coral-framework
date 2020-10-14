@@ -10,6 +10,7 @@ import org.apache.commons.codec.digest.HmacUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ftf.coral.business.context.UserContext;
 import com.ftf.coral.core.auth.AuthManager;
 import com.ftf.coral.core.auth.credentials.Credential;
 import com.ftf.coral.core.auth.signer.internal.SignerConstants;
@@ -93,6 +94,7 @@ public class DefaultSigner extends AbstractSigner {
         if (verifyResult) {
             // 将应用信息放入当前线程上下文
             AuthManager.putCurrentAppId(credential.getAppId());
+            UserContext.setCurrentUser(credential.getAppId());
         }
 
         return verifyResult;

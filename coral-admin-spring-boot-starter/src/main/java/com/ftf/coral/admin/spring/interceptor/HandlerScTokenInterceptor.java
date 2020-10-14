@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.ftf.coral.admin.core.CoralAdminCore;
 import com.ftf.coral.admin.core.ScAccountManager;
 import com.ftf.coral.admin.core.ScToken;
 import com.ftf.coral.admin.core.ScTokenManager;
@@ -17,6 +18,7 @@ import com.ftf.coral.admin.core.annotation.ScAccountAuth;
 import com.ftf.coral.admin.core.session.ScTokenSession;
 import com.ftf.coral.admin.protobuf.ScAccountInfo;
 import com.ftf.coral.admin.protobuf.ScTokenSessionInfo;
+import com.ftf.coral.business.context.UserContext;
 import com.ftf.coral.util.CollectionUtils;
 import com.ftf.coral.util.HttpRequestUtils;
 import com.ftf.coral.util.IPUtil;
@@ -42,7 +44,7 @@ public class HandlerScTokenInterceptor extends HandlerInterceptorAdapter {
         javax.servlet.http.Cookie[] cookies = request.getCookies();
         if (CollectionUtils.isNotEmpty(cookies)) {
             for (javax.servlet.http.Cookie cookie : cookies) {
-                if (cookie.getName().equals("_sa_a")) {
+                if (cookie.getName().equals(CoralAdminCore.getTokenKey("a"))) {
                     token = cookie.getValue();
                     break;
                 }
@@ -81,11 +83,12 @@ public class HandlerScTokenInterceptor extends HandlerInterceptorAdapter {
         ScTokenManager.putCurrentScToken(tk);
 
         if (isNewToken) {
-            scTokenSession.init(tk, null, null);
+            ScTokenSessionInfo tokenSessionInfo = scTokenSession.init(tk, null, null);
+            ScAccountManager.putCurrentTokenSessionInfo(tokenSessionInfo);
 
             // 写入 cookie
             String topDomain = HttpRequestUtils.getTopDomain(request);
-            javax.servlet.http.Cookie d = new javax.servlet.http.Cookie("_sa_a", token);
+            javax.servlet.http.Cookie d = new javax.servlet.http.Cookie(CoralAdminCore.getTokenKey("a"), token);
             d.setDomain(topDomain);
             d.setHttpOnly(false);
             d.setPath("/");
@@ -93,6 +96,10 @@ public class HandlerScTokenInterceptor extends HandlerInterceptorAdapter {
 
         } else {
             scTokenSession.refresh(tk);
+        }
+
+        if (tk.isLogin()) {
+            UserContext.setCurrentUser(ScAccountManager.getCurrentTokenSessionInfo().getScAccountInfo().getUsername());
         }
 
         if (handler instanceof HandlerMethod) {

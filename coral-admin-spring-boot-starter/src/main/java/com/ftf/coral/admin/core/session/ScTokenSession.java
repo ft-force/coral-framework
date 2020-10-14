@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
+import com.ftf.coral.admin.core.CoralAdminCore;
 import com.ftf.coral.admin.core.ScToken;
 import com.ftf.coral.admin.core.entity.ScAccount;
 import com.ftf.coral.admin.protobuf.ScAccountInfo;
@@ -28,12 +29,15 @@ public class ScTokenSession {
         this.redisTemplate = redisTemplate;
     }
 
-    public void init(ScToken scToken, ScAccount scAccount, List<String> roles) {
+    public ScTokenSessionInfo init(ScToken scToken, ScAccount scAccount, List<String> roles) {
+
+        ScTokenSessionInfo.Builder scTokenSessionInfoBuilder = ScTokenSessionInfo.newBuilder();
 
         // 初始化 sessionInfo
         ScSessionInfo.Builder scSessionInfoBuilder = ScSessionInfo.newBuilder();
         scSessionInfoBuilder.setBeginTime(Int64Value.newBuilder().setValue(SystemClock.now()));
         scSessionInfoBuilder.setDeviceInfo("deviceinfo");
+        scTokenSessionInfoBuilder.setScSessionInfo(scSessionInfoBuilder);
         byte[] scSessionInfoBytes = scSessionInfoBuilder.build().toByteArray();
 
         if (scToken.isLogin()) {
@@ -47,11 +51,12 @@ public class ScTokenSession {
                 scAccountInfoBuilder.addAllRoles(roles);
             }
             scAccountInfoBuilder.setLoginTime(Int64Value.newBuilder().setValue(SystemClock.now()));
+            scTokenSessionInfoBuilder.setScAccountInfo(scAccountInfoBuilder);
             byte[] scAccountInfoBytes = scAccountInfoBuilder.build().toByteArray();
 
-            String sessionKey = StringUtils.join("sa_ts_", scToken.getAccountIdMD5(), scToken.getSessionToken(),
-                scToken.getClientSignature());
-            String accountKey = StringUtils.join("sa_ta_", scToken.getAccountIdMD5());
+            String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getAccountIdMD5(),
+                scToken.getSessionToken(), scToken.getClientSignature());
+            String accountKey = StringUtils.join(CoralAdminCore.getTokenKey("ta_"), scToken.getAccountIdMD5());
 
             final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
             byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
@@ -67,7 +72,8 @@ public class ScTokenSession {
 
         } else {
 
-            String sessionKey = StringUtils.join("sa_ts_", scToken.getSessionToken(), scToken.getClientSignature());
+            String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getSessionToken(),
+                scToken.getClientSignature());
 
             final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
             byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
@@ -78,15 +84,17 @@ public class ScTokenSession {
                 return null;
             });
         }
+
+        return scTokenSessionInfoBuilder.build();
     }
 
     public void refresh(ScToken scToken) {
 
         if (scToken.isLogin()) {
 
-            String sessionKey = StringUtils.join("sa_ts_", scToken.getAccountIdMD5(), scToken.getSessionToken(),
-                scToken.getClientSignature());
-            String accountKey = StringUtils.join("sa_ta_", scToken.getAccountIdMD5());
+            String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getAccountIdMD5(),
+                scToken.getSessionToken(), scToken.getClientSignature());
+            String accountKey = StringUtils.join(CoralAdminCore.getTokenKey("ta_"), scToken.getAccountIdMD5());
 
             final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
             byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
@@ -101,7 +109,8 @@ public class ScTokenSession {
 
         } else {
 
-            String sessionKey = StringUtils.join("sa_ts_", scToken.getSessionToken(), scToken.getClientSignature());
+            String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getSessionToken(),
+                scToken.getClientSignature());
 
             final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
             byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
@@ -119,9 +128,9 @@ public class ScTokenSession {
         try {
             if (scToken.isLogin()) {
 
-                String sessionKey = StringUtils.join("sa_ts_", scToken.getAccountIdMD5(), scToken.getSessionToken(),
-                    scToken.getClientSignature());
-                String accountKey = StringUtils.join("sa_ta_", scToken.getAccountIdMD5());
+                String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getAccountIdMD5(),
+                    scToken.getSessionToken(), scToken.getClientSignature());
+                String accountKey = StringUtils.join(CoralAdminCore.getTokenKey("ta_"), scToken.getAccountIdMD5());
 
                 final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
                 byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
@@ -144,7 +153,8 @@ public class ScTokenSession {
 
             } else {
 
-                String sessionKey = StringUtils.join("sa_ts_", scToken.getSessionToken(), scToken.getClientSignature());
+                String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getSessionToken(),
+                    scToken.getClientSignature());
 
                 final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
                 byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
@@ -172,8 +182,8 @@ public class ScTokenSession {
     public void clear(ScToken scToken) {
 
         if (scToken.isLogin()) {
-            String sessionKey = StringUtils.join("sa_ts_", scToken.getAccountIdMD5(), scToken.getSessionToken(),
-                scToken.getClientSignature());
+            String sessionKey = StringUtils.join(CoralAdminCore.getTokenKey("ts_"), scToken.getAccountIdMD5(),
+                scToken.getSessionToken(), scToken.getClientSignature());
 
             final RedisSerializer<String> keySerializer = redisTemplate.getStringSerializer();
             byte[] sessionKeyBytes = keySerializer.serialize(sessionKey);
