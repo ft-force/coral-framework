@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -19,6 +21,7 @@ import com.ftf.coral.business.context.UserContext;
 import com.ftf.coral.util.StringUtils;
 import com.ftf.coral.util.SystemClock;
 
+@Order(Ordered.LOWEST_PRECEDENCE)
 public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("http-access-log");
@@ -38,11 +41,21 @@ public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
         throws Exception {
 
+        long timeTaken = SystemClock.now() - startTimeHolder.get();
+        startTimeHolder.remove();
+        String remoteIP = IPUtils.getRemoteIP(request);
+
         // 打印访问日志
         if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("[{}][{}][{} {}?{} {}] {} {}ms", UserContext.getCurrentUser(), IPUtils.getRemoteIP(request),
+
+            String requestId = request.getHeader("x-request-id");
+            if (StringUtils.isBlank(requestId)) {
+                requestId = "-";
+            }
+
+            LOGGER.info("[{}][{}][{}][{} {}?{} {}] {} {}ms", UserContext.getCurrentUser(), requestId, remoteIP,
                 request.getMethod(), request.getRequestURI(), request.getQueryString(), request.getProtocol(),
-                response.getStatus(), SystemClock.now() - startTimeHolder.get(), ex);
+                response.getStatus(), timeTaken, ex);
         }
 
         if (handler instanceof HandlerMethod) {
@@ -65,8 +78,8 @@ public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
             }
             auditLog.setEventId(request.getHeader("x-request-id")); // 事件ID
             auditLog.setStartTime(startTimeHolder.get());
-            auditLog.setTimeTaken(SystemClock.now() - startTimeHolder.get()); // 耗时
-            auditLog.setRemoteAddr(IPUtils.getRemoteIP(request));
+            auditLog.setTimeTaken(timeTaken); // 耗时
+            auditLog.setRemoteAddr(remoteIP);
             auditLog.setHttpMethod(request.getMethod());
             auditLog.setRequestURI(request.getRequestURI());
             auditLog.setRequestQueryString(request.getQueryString());
@@ -75,8 +88,6 @@ public class HandlerAuditInterceptor extends HandlerInterceptorAdapter {
             auditLog.setRequestBody(request.getReader().lines().collect(Collectors.joining(System.lineSeparator())));
             auditLog.setResponseStatus(response.getStatus());
             auditLog.setException(ex);
-
-            startTimeHolder.remove();
 
             AuditLogManager.dealAuditLog(auditLog);
         }
