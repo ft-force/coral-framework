@@ -390,6 +390,23 @@ public class StringUtils {
         return string.substring(start, end);
     }
 
+    public static String cutLength(String string, int length) {
+
+        if (isNotBlank(string)) {
+
+            string = string.trim();
+
+            if (string.length() > length) {
+                return string.substring(0, length);
+            } else {
+                return string;
+            }
+
+        } else {
+            return "";
+        }
+    }
+
     public static byte[] getBytes(final String string) {
         try {
             return string.getBytes(CoralCore.encoding);
