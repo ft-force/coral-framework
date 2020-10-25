@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 public class EventRegion {
 
-    private static final Logger logger = LoggerFactory.getLogger(EventBus.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventBus.class);
 
     String eventRegion;
 
@@ -166,7 +166,7 @@ public class EventRegion {
 
                         }
                     } catch (Throwable e) {
-                        logger.error(e.getMessage(), e);
+                        LOGGER.error(e.getMessage(), e);
                     }
                 }
             }
