@@ -3,8 +3,6 @@ package com.ftf.coral.admin.business.infra.mapper;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.Spring;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -41,7 +39,7 @@ public interface ScApplicationAdminMapper {
     int deleteByApplicationId(String applicationId);
 
     @SelectProvider(type = Provider.class, method = "pageSelect")
-    List<Map<Spring, Object>> pageSelect(@Param("page") PageRequest page);
+    List<Map<String, Object>> pageSelect(@Param("page") PageRequest page);
 
     class Provider {
         /* 批量插入 */

@@ -3,8 +3,6 @@ package com.ftf.coral.admin.business.app.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.Spring;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +24,9 @@ public class ScApplicationAdminService {
     @Autowired
     private ScApplicationAdminMapper scApplicationAdminMapper;
 
-    public PageData<Map<Spring, Object>> pageQuery(PageRequest pageRequest) {
+    public PageData<Map<String, Object>> pageQuery(PageRequest pageRequest) {
 
-        List<Map<Spring, Object>> scAccountList = scApplicationAdminMapper.pageSelect(pageRequest);
+        List<Map<String, Object>> scAccountList = scApplicationAdminMapper.pageSelect(pageRequest);
 
         return new PageData<>(pageRequest, pageRequest.getTotalItems(), scAccountList);
     }

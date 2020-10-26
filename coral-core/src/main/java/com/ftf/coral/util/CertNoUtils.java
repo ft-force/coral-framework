@@ -53,7 +53,7 @@ public class CertNoUtils {
         String month = certNo.substring(6 + birthYearSpan, 6 + birthYearSpan + 2);
         String day = certNo.substring(8 + birthYearSpan, 8 + birthYearSpan + 2);
         Calendar.Builder birthdayBuilder = new Calendar.Builder();
-        birthdayBuilder.setDate(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day));
+        birthdayBuilder.setDate(Integer.valueOf(year), Integer.valueOf(month) - 1, Integer.valueOf(day));
         certInfo.setBirthday(birthdayBuilder.build().getTime());
 
         return certInfo;
@@ -83,8 +83,8 @@ public class CertNoUtils {
 
     public enum Sex implements IntegerValueEnum {
 
-        Male(0), // 男
-        Female(1);// 女
+        Male(1), // 男
+        Female(2);// 女
 
         private Integer value;
 

@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.Spring;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class ScAccountController extends BaseController {
     @ScAccountAuth
     @GetMapping("/scaccounts")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDTO<PageData<Map<Spring, Object>>> pageQurey(
+    public ResponseDTO<PageData<Map<String, Object>>> pageQurey(
         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
         @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
         @RequestParam(value = "username", required = false) String username) {
@@ -74,7 +73,7 @@ public class ScAccountController extends BaseController {
             pageRequest.getConditionMap().put("username", username);
         }
 
-        return new ResponseDTO<PageData<Map<Spring, Object>>>().success(scAccountService.pageQuery(pageRequest));
+        return new ResponseDTO<PageData<Map<String, Object>>>().success(scAccountService.pageQuery(pageRequest));
     }
 
     @ScAccountAuth({"admin"})

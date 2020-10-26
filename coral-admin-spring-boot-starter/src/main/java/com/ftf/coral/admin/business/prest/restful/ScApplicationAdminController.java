@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.Spring;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class ScApplicationAdminController extends BaseController {
     @ScAccountAuth
     @GetMapping("/apps/admin")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseDTO<PageData<Map<Spring, Object>>> pageQurey(
+    public ResponseDTO<PageData<Map<String, Object>>> pageQurey(
         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
         @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
         @RequestParam(value = "applicationId") String applicationId,
@@ -62,7 +61,7 @@ public class ScApplicationAdminController extends BaseController {
         if (StringUtils.isNotBlank(username)) {
             pageRequest.getConditionMap().put("username", username);
         }
-        return new ResponseDTO<PageData<Map<Spring, Object>>>()
+        return new ResponseDTO<PageData<Map<String, Object>>>()
             .success(scApplicationAdminService.pageQuery(pageRequest));
     }
 
