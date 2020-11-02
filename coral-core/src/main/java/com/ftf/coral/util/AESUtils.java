@@ -21,10 +21,14 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ftf.coral.CoralCore;
 
 public class AESUtils {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AESUtils.class);
 
     private static final String defaultKey = "vdXxGkQMM&^%Th(_\6?KH";
 
@@ -133,6 +137,10 @@ public class AESUtils {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
             | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException
             | UnsupportedEncodingException e) {
+
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("解码失败 encrypted:{} | key:{} | iv:{}", encrypted, key, iv);
+            }
 
             throw new RuntimeException(e);
         }
