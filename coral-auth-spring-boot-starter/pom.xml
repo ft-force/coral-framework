@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.ft-force</groupId>
         <artifactId>coral-parent</artifactId>
-        <version>0.2.6</version>
+        <version>0.2.7</version>
     </parent>
 
     <artifactId>coral-auth-spring-boot-starter</artifactId>
