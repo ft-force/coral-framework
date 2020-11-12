@@ -5,6 +5,8 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +16,9 @@ import org.slf4j.LoggerFactory;
 public class IPUtil {
 
     private static Logger logger = LoggerFactory.getLogger(IPUtil.class);
+    private static final Pattern IPV4_PATTERN =
+        Pattern.compile("^((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)$");
+    private static final Pattern IPV6_PATTERN = Pattern.compile("^([\\da-fA-F]{1,4}:){7}[\\da-fA-F]{1,4}$");
 
     /**
      * 获取本地IP
@@ -74,5 +79,21 @@ public class IPUtil {
         }
 
         return clientIp;
+    }
+
+    public static boolean isIpv4(String addr) {
+        return isMatch(addr, IPV4_PATTERN);
+    }
+
+    public static boolean isIpv6(String addr) {
+        return isMatch(addr, IPV6_PATTERN);
+    }
+
+    private static boolean isMatch(String data, Pattern pattern) {
+        if (StringUtils.isBlank(data)) {
+            return false;
+        }
+        Matcher mat = pattern.matcher(data);
+        return mat.find();
     }
 }
