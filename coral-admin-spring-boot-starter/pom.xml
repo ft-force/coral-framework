@@ -4,7 +4,7 @@
     <parent>
         <groupId>com.github.ft-force</groupId>
         <artifactId>coral-parent</artifactId>
-        <version>0.2.7</version>
+        <version>0.2.8</version>
     </parent>
 
     <artifactId>coral-admin-spring-boot-starter</artifactId>
@@ -42,13 +42,13 @@
             <artifactId>commons-pool2</artifactId>
         </dependency>
         <!-- ad域 -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-ldap</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-        </dependency>
+        </dependency> -->
     </dependencies>
 </project>
