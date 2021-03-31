@@ -88,7 +88,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>28.1-android</version>
+                <version>29.0-android</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
